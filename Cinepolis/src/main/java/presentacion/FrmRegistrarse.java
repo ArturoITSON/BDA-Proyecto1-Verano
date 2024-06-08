@@ -107,7 +107,7 @@ public class FrmRegistrarse extends javax.swing.JFrame {
 
         campoTextoCiudad.setBackground(new java.awt.Color(136, 201, 239));
 
-        campoTextoNombre2.setBackground(new java.awt.Color(71, 177, 239));
+        campoTextoNombre2.setBackground(new java.awt.Color(136, 201, 239));
 
         campoTextoApellidoPaterno.setBackground(new java.awt.Color(136, 201, 239));
 
@@ -282,6 +282,10 @@ public class FrmRegistrarse extends javax.swing.JFrame {
 
     private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
         // TODO add your handling code here:
+        FrmInicio inicio = new FrmInicio();
+        
+        inicio.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jbtCancelarActionPerformed
 
     /**

@@ -147,6 +147,11 @@ public class FrmInicio extends javax.swing.JFrame {
 
     private void jbtIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIniciarSesionActionPerformed
         // TODO add your handling code here:
+        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion();
+        
+        iniciarSesion.setVisible(true);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_jbtIniciarSesionActionPerformed
 
     private void jbtRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarseActionPerformed
