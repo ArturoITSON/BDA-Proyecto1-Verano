@@ -18,6 +18,8 @@ public class FrmInicio extends javax.swing.JFrame {
 
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
+    
+    
     /**
      * Creates new form FrmInicio
      */
