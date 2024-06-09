@@ -64,8 +64,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         campoTextoCorreo1 = new javax.swing.JTextField();
         lblCorreo = new javax.swing.JLabel();
         lblCorreo1 = new javax.swing.JLabel();
-        jbtIniciarSesion = new javax.swing.JButton();
-        jbtVolver = new javax.swing.JButton();
+        btnIniciarSesion = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,25 +107,25 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         lblCorreo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCorreo1.setText("Contraseña");
 
-        jbtIniciarSesion.setBackground(new java.awt.Color(8, 148, 249));
-        jbtIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jbtIniciarSesion.setForeground(new java.awt.Color(0, 0, 0));
-        jbtIniciarSesion.setText("Iniciar Sesion");
-        jbtIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciarSesion.setBackground(new java.awt.Color(8, 148, 249));
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnIniciarSesion.setForeground(new java.awt.Color(0, 0, 0));
+        btnIniciarSesion.setText("Iniciar Sesion");
+        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtIniciarSesionActionPerformed(evt);
+                btnIniciarSesionActionPerformed(evt);
             }
         });
 
-        jbtVolver.setBackground(new java.awt.Color(240, 76, 76));
-        jbtVolver.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jbtVolver.setForeground(new java.awt.Color(0, 0, 0));
-        jbtVolver.setText("Volver");
-        jbtVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtVolver.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setBackground(new java.awt.Color(240, 76, 76));
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(0, 0, 0));
+        btnVolver.setText("Volver");
+        btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtVolverActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
@@ -149,9 +149,9 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 .addGap(138, 138, 138))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jbtVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,8 +168,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 .addComponent(campoTextoContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -188,17 +188,17 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtIniciarSesionActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtIniciarSesionActionPerformed
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void jbtVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtVolverActionPerformed
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
         FrmInicio inicio = new FrmInicio();
 
         inicio.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtVolverActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,13 +236,13 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JTextField campoTextoContraseña;
     private javax.swing.JTextField campoTextoCorreo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jblCinepolisLogo;
-    private javax.swing.JButton jbtIniciarSesion;
-    private javax.swing.JButton jbtVolver;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblCorreo1;
     // End of variables declaration//GEN-END:variables
