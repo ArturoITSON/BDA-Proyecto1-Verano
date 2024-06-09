@@ -17,7 +17,7 @@ public class ClienteTablaDTO {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correoElectronico;
-    private Date fechaNacimineto;
+    private Date fechaNacimiento;
     private float latitud;
     private float longitud;
     private int idCiudadCliente;
@@ -26,13 +26,13 @@ public class ClienteTablaDTO {
         
     }
 
-    public ClienteTablaDTO(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimineto, float latitud, float longitud, int idCiudadCliente) {
+    public ClienteTablaDTO(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimiento, float latitud, float longitud, int idCiudadCliente) {
         this.idCliente = idCliente;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronico = correoElectronico;
-        this.fechaNacimineto = fechaNacimineto;
+        this.fechaNacimiento = fechaNacimiento;
         this.latitud = latitud;
         this.longitud = longitud;
         this.idCiudadCliente = idCiudadCliente;
@@ -78,12 +78,12 @@ public class ClienteTablaDTO {
         this.correoElectronico = correoElectronico;
     }
 
-    public Date getFechaNacimineto() {
-        return fechaNacimineto;
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFechaNacimineto(Date fechaNacimineto) {
-        this.fechaNacimineto = fechaNacimineto;
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public float getLatitud() {
@@ -117,11 +117,9 @@ public class ClienteTablaDTO {
                 + ", apellidoPaterno=" + apellidoPaterno 
                 + ", apellidoMaterno=" + apellidoMaterno 
                 + ", correoElectronico=" + correoElectronico 
-                + ", fechaNacimineto=" + fechaNacimineto 
+                + ", fechaNacimineto=" + fechaNacimiento 
                 + ", latitud=" + latitud 
                 + ", longitud=" + longitud 
                 + ", idCiudadCliente=" + idCiudadCliente + '}';
     }
-    
-    
 }

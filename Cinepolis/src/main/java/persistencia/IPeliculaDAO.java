@@ -3,6 +3,9 @@
  */
 package persistencia;
 
+import entidad.PeliculaEntidad;
+import java.util.List;
+
 /**
  *
  * @author/(s): Daniel Alejandro Castro Félix - 235294.
@@ -10,5 +13,8 @@ package persistencia;
  *              Sergio Arturo García Ramírez - 233316.
  */
 public interface IPeliculaDAO {
-    
+    public List<PeliculaEntidad> buscarPeliculasTabla() throws PersistenciaException;
+    public void registrarPelicula(PeliculaEntidad pelicula) throws PersistenciaException;
+    public void editarPelicula(PeliculaEntidad pelicula) throws PersistenciaException;
+    public void eliminarPelicula(int idPelicula) throws PersistenciaException;
 }

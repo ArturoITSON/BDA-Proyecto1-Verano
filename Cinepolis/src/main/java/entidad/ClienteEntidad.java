@@ -15,7 +15,7 @@ public class ClienteEntidad {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correoElectronico;
-    private Date fechaNacimineto;
+    private Date fechaNacimiento;
     private float latitud;
     private float longitud;
     private int idCiudadCliente;
@@ -26,7 +26,7 @@ public class ClienteEntidad {
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronico = correoElectronico;
-        this.fechaNacimineto = fechaNacimineto;
+        this.fechaNacimiento = fechaNacimineto;
         this.latitud = latitud;
         this.longitud = longitud;
         this.idCiudadCliente = idCiudadCliente;
@@ -72,12 +72,12 @@ public class ClienteEntidad {
         this.correoElectronico = correoElectronico;
     }
 
-    public Date getFechaNacimineto() {
-        return fechaNacimineto;
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFechaNacimineto(Date fechaNacimineto) {
-        this.fechaNacimineto = fechaNacimineto;
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public float getLatitud() {
