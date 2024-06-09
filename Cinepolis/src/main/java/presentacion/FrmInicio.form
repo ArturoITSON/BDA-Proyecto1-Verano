@@ -50,8 +50,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jbtIniciarSesion" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
-                      <Component id="jbtRegistrarse" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
+                      <Component id="btnIniciarSesion" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
+                      <Component id="btnRegistrarse" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="220" pref="220" max="-2" attributes="0"/>
               </Group>
@@ -62,9 +62,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="92" max="32767" attributes="0"/>
-                  <Component id="jbtIniciarSesion" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="btnIniciarSesion" min="-2" pref="65" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                  <Component id="jbtRegistrarse" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="btnRegistrarse" min="-2" pref="65" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -106,7 +106,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jbtIniciarSesion">
+        <Component class="javax.swing.JButton" name="btnIniciarSesion">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="94" red="8" type="rgb"/>
@@ -120,10 +120,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtIniciarSesionActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarSesionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtRegistrarse">
+        <Component class="javax.swing.JButton" name="btnRegistrarse">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="94" red="8" type="rgb"/>
@@ -137,7 +137,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtRegistrarseActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarseActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

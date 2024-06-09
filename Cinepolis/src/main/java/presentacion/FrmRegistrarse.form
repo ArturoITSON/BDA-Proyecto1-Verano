@@ -49,9 +49,9 @@
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jbtCancelar" min="-2" pref="191" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" min="-2" pref="191" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jbtRegistrarse" min="-2" pref="191" max="-2" attributes="0"/>
+                          <Component id="btnRegistrarse" min="-2" pref="191" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -146,8 +146,8 @@
                   </Group>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jbtRegistrarse" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="jbtCancelar" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnRegistrarse" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
@@ -319,7 +319,7 @@
             <Property name="text" type="java.lang.String" value="Correo Electronico"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtRegistrarse">
+        <Component class="javax.swing.JButton" name="btnRegistrarse">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="f9" green="94" red="8" type="rgb"/>
@@ -336,10 +336,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtRegistrarseActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarseActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jbtCancelar">
+        <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="4c" green="4c" red="f0" type="rgb"/>
@@ -356,7 +356,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtCancelarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

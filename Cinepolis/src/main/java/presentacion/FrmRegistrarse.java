@@ -72,8 +72,8 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         lblApellidoPaterno2 = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
-        jbtRegistrarse = new javax.swing.JButton();
-        jbtCancelar = new javax.swing.JButton();
+        btnRegistrarse = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrarse");
@@ -148,25 +148,25 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         lblCorreo.setForeground(new java.awt.Color(0, 0, 0));
         lblCorreo.setText("Correo Electronico");
 
-        jbtRegistrarse.setBackground(new java.awt.Color(8, 148, 249));
-        jbtRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jbtRegistrarse.setForeground(new java.awt.Color(0, 0, 0));
-        jbtRegistrarse.setText("Registrarse");
-        jbtRegistrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarse.setBackground(new java.awt.Color(8, 148, 249));
+        btnRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnRegistrarse.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegistrarse.setText("Registrarse");
+        btnRegistrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtRegistrarseActionPerformed(evt);
+                btnRegistrarseActionPerformed(evt);
             }
         });
 
-        jbtCancelar.setBackground(new java.awt.Color(240, 76, 76));
-        jbtCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jbtCancelar.setForeground(new java.awt.Color(0, 0, 0));
-        jbtCancelar.setText("Cancelar");
-        jbtCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(240, 76, 76));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtCancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -179,9 +179,9 @@ public class FrmRegistrarse extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(campoTextoFecha, javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,8 +252,8 @@ public class FrmRegistrarse extends javax.swing.JFrame {
                     .addComponent(campoTextoContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
 
@@ -276,17 +276,17 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoTextoCorreoActionPerformed
 
-    private void jbtRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRegistrarseActionPerformed
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtRegistrarseActionPerformed
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
-    private void jbtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCancelarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         FrmInicio inicio = new FrmInicio();
         
         inicio.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jbtCancelarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,6 +324,8 @@ public class FrmRegistrarse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRegistrarse;
     private javax.swing.JTextField campoTextoApellidoMaterno;
     private javax.swing.JTextField campoTextoApellidoPaterno;
     private javax.swing.JTextField campoTextoCiudad;
@@ -334,8 +336,6 @@ public class FrmRegistrarse extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jblCinepolisLogo;
-    private javax.swing.JButton jbtCancelar;
-    private javax.swing.JButton jbtRegistrarse;
     private javax.swing.JLabel lblApellidoMaterno;
     private javax.swing.JLabel lblApellidoPaterno2;
     private javax.swing.JLabel lblCiudad;

@@ -3,6 +3,11 @@
  */
 package presentacion;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author/(s): Daniel Alejandro Castro Félix - 235294.
@@ -11,12 +16,37 @@ package presentacion;
  */
 public class FrmPantallaAdmin extends javax.swing.JFrame {
 
+    
+    private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
+
+    
     /**
      * Creates new form FrmPantallaAdmin
      */
     public FrmPantallaAdmin() {
         initComponents();
+        
+        
+        setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
+
+        
     }
+    
+    
+    private void setImagenLabel(JLabel nombreJlb, String ruta){
+    
+        ImageIcon image = new ImageIcon(ruta);
+        
+        Icon icon = new ImageIcon(
+       image.getImage().getScaledInstance(nombreJlb.getWidth(), nombreJlb.getHeight(), Image.SCALE_DEFAULT));
+        
+        nombreJlb.setIcon(icon);
+        
+        this.repaint();
+   
+    }     
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +57,178 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jblCinepolisLogo = new javax.swing.JLabel();
+        lblMenuAdministrador = new javax.swing.JLabel();
+        btnModificarPelicula = new javax.swing.JButton();
+        btnModificarFuncion = new javax.swing.JButton();
+        btnModificarSucursal = new javax.swing.JButton();
+        btnModificarCiudad = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Administrador");
+        setPreferredSize(new java.awt.Dimension(700, 500));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jblCinepolisLogo.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jblCinepolisLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jblCinepolisLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        lblMenuAdministrador.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblMenuAdministrador.setForeground(new java.awt.Color(0, 0, 0));
+        lblMenuAdministrador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMenuAdministrador.setText("Menu Adminsitrador");
+
+        btnModificarPelicula.setBackground(new java.awt.Color(8, 148, 249));
+        btnModificarPelicula.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnModificarPelicula.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificarPelicula.setText("Modificar Pelicula");
+        btnModificarPelicula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarPeliculaActionPerformed(evt);
+            }
+        });
+
+        btnModificarFuncion.setBackground(new java.awt.Color(8, 148, 249));
+        btnModificarFuncion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnModificarFuncion.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificarFuncion.setText("Modificar Funcion");
+        btnModificarFuncion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarFuncion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarFuncionActionPerformed(evt);
+            }
+        });
+
+        btnModificarSucursal.setBackground(new java.awt.Color(8, 148, 249));
+        btnModificarSucursal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnModificarSucursal.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificarSucursal.setText("Modificar Sucursal");
+        btnModificarSucursal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarSucursal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarSucursalActionPerformed(evt);
+            }
+        });
+
+        btnModificarCiudad.setBackground(new java.awt.Color(8, 148, 249));
+        btnModificarCiudad.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnModificarCiudad.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificarCiudad.setText("Modificar Ciudad");
+        btnModificarCiudad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarCiudadActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblMenuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificarFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificarSucursal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificarCiudad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMenuAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificarSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificarFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificarCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnModificarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPeliculaActionPerformed
+        // TODO add your handling code here:
+        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula();
+        
+        modificarPelicula.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnModificarPeliculaActionPerformed
+
+    private void btnModificarFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFuncionActionPerformed
+        // TODO add your handling code here:
+        FrmModificarFuncion modificarFuncion = new FrmModificarFuncion();
+        
+        modificarFuncion.setVisible(true);
+        
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnModificarFuncionActionPerformed
+
+    private void btnModificarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSucursalActionPerformed
+        // TODO add your handling code here:
+        FrmModificarSucursal modificarSucursal = new FrmModificarSucursal();
+        
+        modificarSucursal.setVisible(true);
+        
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnModificarSucursalActionPerformed
+
+    private void btnModificarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCiudadActionPerformed
+        // TODO add your handling code here:
+        FrmModificarCiudad modificarCiudad = new FrmModificarCiudad();
+        
+        modificarCiudad.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnModificarCiudadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +266,13 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnModificarCiudad;
+    private javax.swing.JButton btnModificarFuncion;
+    private javax.swing.JButton btnModificarPelicula;
+    private javax.swing.JButton btnModificarSucursal;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jblCinepolisLogo;
+    private javax.swing.JLabel lblMenuAdministrador;
     // End of variables declaration//GEN-END:variables
 }
