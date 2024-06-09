@@ -109,7 +109,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         );
 
         lblModificarPelicula.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblModificarPelicula.setForeground(new java.awt.Color(0, 0, 0));
         lblModificarPelicula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblModificarPelicula.setText("Modificar Pelicula");
 
@@ -154,7 +153,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         campoTextoDuracion.setBackground(new java.awt.Color(136, 201, 239));
 
         btnGuardar.setBackground(new java.awt.Color(8, 148, 249));
-        btnGuardar.setForeground(new java.awt.Color(0, 0, 0));
         btnGuardar.setText("Guardar");
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +162,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         });
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
-        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +172,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
 
         btnRegresar.setBackground(new java.awt.Color(8, 148, 249));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
         btnRegresar.setText("Regresar");
         btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +181,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         });
 
         btnEditar.setBackground(new java.awt.Color(8, 148, 249));
-        btnEditar.setForeground(new java.awt.Color(0, 0, 0));
         btnEditar.setText("Editar");
         btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -195,31 +190,24 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         });
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(0, 0, 0));
         lblTitulo.setText("Titulo");
 
         lblSinopsis.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblSinopsis.setForeground(new java.awt.Color(0, 0, 0));
         lblSinopsis.setText("Sinopsis");
 
         lblPais.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblPais.setForeground(new java.awt.Color(0, 0, 0));
         lblPais.setText("Pais");
 
         lblTrailer.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblTrailer.setForeground(new java.awt.Color(0, 0, 0));
         lblTrailer.setText("Trailer");
 
         lblGenero.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblGenero.setForeground(new java.awt.Color(0, 0, 0));
         lblGenero.setText("Genero");
 
         lblClasificacion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblClasificacion.setForeground(new java.awt.Color(0, 0, 0));
         lblClasificacion.setText("Clasificacion");
 
         lblDuracion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblDuracion.setForeground(new java.awt.Color(0, 0, 0));
         lblDuracion.setText("Duracion");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
