@@ -79,6 +79,26 @@ public class ClienteNegocio implements IClienteNegocio {
             throw new NegocioException("Error al registrar el cliente: " + ex.getMessage());
         }
     }
+    
+    
+    //Metodo prueba de registrar cliente que recibe una entidad entera
+    @Override
+    public void registrarCliente(ClienteEntidad cliente) throws NegocioException {
+
+        ClienteEntidad nuevoCliente = new ClienteEntidad();
+        nuevoCliente.setNombres(cliente.getNombres().trim());
+        nuevoCliente.setApellidoPaterno(cliente.getApellidoPaterno().trim());
+        nuevoCliente.setApellidoMaterno(cliente.getApellidoMaterno() != null ? cliente.getApellidoMaterno().trim() : null);
+        nuevoCliente.setCorreoElectronico(cliente.getCorreoElectronico());
+        nuevoCliente.setFechaNacimiento(cliente.getFechaNacimiento());
+        nuevoCliente.setIdCiudadCliente(1);
+
+        try {
+            clienteDAO.registrarCliente(nuevoCliente);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al registrar el cliente: " + ex.getMessage());
+        }
+    }    
 
     @Override
     public void editarCliente(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimiento, float latitud, float longitud, int idCiudad) throws NegocioException {

@@ -20,6 +20,11 @@ public class ClienteEntidad {
     private float longitud;
     private int idCiudadCliente;
 
+    
+    public ClienteEntidad(){
+    
+    }
+    
     public ClienteEntidad(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimineto, float latitud, float longitud, int idCiudadCliente) {
         this.idCliente = idCliente;
         this.nombres = nombres;

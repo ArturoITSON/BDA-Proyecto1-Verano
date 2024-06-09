@@ -61,7 +61,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jblCinepolisLogo = new javax.swing.JLabel();
         campoTextoContraseña = new javax.swing.JTextField();
-        campoTextoCorreo1 = new javax.swing.JTextField();
+        campoTextoCorreo = new javax.swing.JTextField();
         lblCorreo = new javax.swing.JLabel();
         lblCorreo1 = new javax.swing.JLabel();
         btnIniciarSesion = new javax.swing.JButton();
@@ -95,7 +95,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
         campoTextoContraseña.setBackground(new java.awt.Color(136, 201, 239));
 
-        campoTextoCorreo1.setBackground(new java.awt.Color(136, 201, 239));
+        campoTextoCorreo.setBackground(new java.awt.Color(136, 201, 239));
 
         lblCorreo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblCorreo.setForeground(new java.awt.Color(0, 0, 0));
@@ -144,7 +144,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCorreo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(campoTextoCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoTextoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(campoTextoContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(138, 138, 138))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -161,7 +161,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(campoTextoCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campoTextoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(lblCorreo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -190,6 +190,15 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
+        
+        if (campoTextoCorreo.getText() == "admin" && campoTextoContraseña.getText() == "admin"){
+            FrmPantallaAdmin admin = new FrmPantallaAdmin();
+            admin.setVisible(true);
+            
+            this.setVisible(false);
+        }
+        
+        
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -239,7 +248,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnVolver;
     private javax.swing.JTextField campoTextoContraseña;
-    private javax.swing.JTextField campoTextoCorreo1;
+    private javax.swing.JTextField campoTextoCorreo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jblCinepolisLogo;

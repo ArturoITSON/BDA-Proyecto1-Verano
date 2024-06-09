@@ -3,10 +3,23 @@
  */
 package presentacion;
 
+import entidad.ClienteEntidad;
 import java.awt.Image;
+import java.util.Calendar;
+import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import negocio.ClienteNegocio;
+import negocio.IClienteNegocio;
+import negocio.NegocioException;
+import persistencia.ClienteDAO;
+import persistencia.ConexionBD;
+import persistencia.IClienteDAO;
+import persistencia.IConexionBD;
 
 /**
  *
@@ -20,11 +33,21 @@ public class FrmRegistrarse extends javax.swing.JFrame {
      * Creates new form FrmRegistrarse
      */
     
+    private ClienteEntidad cliente = new ClienteEntidad();
+    private IClienteNegocio clienteNegocio;
+    private IConexionBD ConexionBD = new ConexionBD();
+    private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
+    
+    private FrmInicio inicio = new FrmInicio();
+    
+    
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
     
-    public FrmRegistrarse() {
+    public FrmRegistrarse(IClienteNegocio clienteNegocio) {
         initComponents();
+        
+        this.clienteNegocio = clienteNegocio;
         
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
@@ -278,50 +301,47 @@ public class FrmRegistrarse extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
+        
+        String nombres = campoTextoNombre2.getText();
+        String apellidoP = campoTextoApellidoPaterno.getText();
+        String apellidoM = campoTextoApellidoMaterno.getText();
+        String correo = campoTextoCorreo.getText();
+        String contra = campoTextoContraseña.getText();
+        String ciudad = campoTextoCiudad.getText();
+        String fecha = campoTextoFecha.getText();
+            String dia = fecha.substring(0, 1);
+            String mes = fecha.substring(4, 5);
+            String año = fecha.substring(7, 10);
+            
+            Date sql = new Date(Integer.valueOf(año), Integer.valueOf(mes), Integer.valueOf(dia));
+        
+        
+            cliente.setApellidoMaterno(apellidoM);
+            cliente.setApellidoPaterno(apellidoP);
+            cliente.setCorreoElectronico(correo);
+            cliente.setNombres(nombres);
+            cliente.setFechaNacimiento(sql);
+            
+        try {
+            clienteNegocio.registrarCliente(cliente);
+            JOptionPane.showMessageDialog(this, "Cliente registrado con exito");
+            this.dispose();
+            inicio.setVisible(true);
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+            
+        
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        FrmInicio inicio = new FrmInicio();
-        
+        // TODO add your handling code here:        
         inicio.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmRegistrarse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmRegistrarse().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

@@ -4,6 +4,7 @@
 package negocio;
 
 import dtos.ClienteTablaDTO;
+import entidad.ClienteEntidad;
 import java.sql.Date;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public interface IClienteNegocio {
              String apellidoPaterno, String apellidoMaterno, 
              String correoElectronico, Date fechaNacimiento, float latitud, 
              float longitud, int idCiudad) throws NegocioException;
+     
+     public void registrarCliente(ClienteEntidad cliente) throws NegocioException;
+     
      
          public void eliminarCliente(int idCliente) throws NegocioException;
          

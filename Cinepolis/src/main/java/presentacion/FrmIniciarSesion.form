@@ -55,7 +55,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblCorreo1" alignment="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="campoTextoCorreo1" min="-2" pref="420" max="-2" attributes="0"/>
+                                  <Component id="campoTextoCorreo" min="-2" pref="420" max="-2" attributes="0"/>
                                   <Component id="campoTextoContraseña" min="-2" pref="420" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -79,7 +79,7 @@
                   <EmptySpace pref="39" max="32767" attributes="0"/>
                   <Component id="lblCorreo" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="campoTextoCorreo1" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="campoTextoCorreo" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="lblCorreo1" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="campoTextoCorreo1">
+        <Component class="javax.swing.JTextField" name="campoTextoCorreo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ef" green="c9" red="88" type="rgb"/>

@@ -7,6 +7,12 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.ClienteNegocio;
+import negocio.IClienteNegocio;
+import persistencia.ClienteDAO;
+import persistencia.ConexionBD;
+import persistencia.IClienteDAO;
+import persistencia.IConexionBD;
 
 /**
  *
@@ -15,6 +21,14 @@ import javax.swing.JLabel;
  *              Sergio Arturo García Ramírez - 233316.
  */
 public class FrmInicio extends javax.swing.JFrame {
+
+    
+        // CAPA persistencia
+        IConexionBD ConexionBD = new ConexionBD();
+        IClienteDAO clienteDAO = new ClienteDAO(ConexionBD);
+        
+        // CAPA negocio
+        IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
 
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
@@ -158,7 +172,7 @@ public class FrmInicio extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
-        FrmRegistrarse registrarse = new FrmRegistrarse();
+        FrmRegistrarse registrarse = new FrmRegistrarse(clienteNegocio);
         
         registrarse.setVisible(true);
         this.setVisible(false);
