@@ -12,6 +12,7 @@ import negocio.IClienteNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.PeliculaNegocio;
+import negocio.SucursalNegocio;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
 import persistencia.IClienteDAO;
@@ -37,8 +38,7 @@ public class FrmInicio extends javax.swing.JFrame {
         ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
         
         // CAPA negocio
-        ISucursalNegocio sucursalNegocio;    
-        
+        ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
         IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
         IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
         

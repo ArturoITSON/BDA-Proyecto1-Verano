@@ -93,6 +93,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Iniciar Sesion Cinepolis");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -123,18 +124,15 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         campoTextoCorreo.setBackground(new java.awt.Color(136, 201, 239));
 
         lblCorreo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblCorreo.setForeground(new java.awt.Color(0, 0, 0));
         lblCorreo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCorreo.setText("Correo Electronico");
 
         lblCorreo1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblCorreo1.setForeground(new java.awt.Color(0, 0, 0));
         lblCorreo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCorreo1.setText("Contraseña");
 
         btnIniciarSesion.setBackground(new java.awt.Color(8, 148, 249));
         btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnIniciarSesion.setForeground(new java.awt.Color(0, 0, 0));
         btnIniciarSesion.setText("Iniciar Sesion");
         btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -143,9 +141,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             }
         });
 
-        btnVolver.setBackground(new java.awt.Color(240, 76, 76));
+        btnVolver.setBackground(new java.awt.Color(8, 148, 249));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(0, 0, 0));
         btnVolver.setText("Volver");
         btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
