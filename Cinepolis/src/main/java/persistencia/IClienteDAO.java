@@ -18,4 +18,5 @@ public interface IClienteDAO {
     public void registrarCliente(ClienteEntidad cliente) throws PersistenciaException;
     public void editarCliente(ClienteEntidad cliente) throws PersistenciaException;
     public void eliminarCliente(int idCliente) throws PersistenciaException;
+    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws PersistenciaException;
 }

@@ -30,7 +30,9 @@ public interface IClienteNegocio {
      public void registrarCliente(ClienteEntidad cliente) throws NegocioException;
      
      
-         public void eliminarCliente(int idCliente) throws NegocioException;
+     public void eliminarCliente(int idCliente) throws NegocioException;
+     
+     public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws NegocioException;
          
          
 }

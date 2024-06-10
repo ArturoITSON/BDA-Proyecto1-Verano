@@ -321,6 +321,7 @@ public class FrmRegistrarse extends javax.swing.JFrame {
             cliente.setCorreoElectronico(correo);
             cliente.setNombres(nombres);
             cliente.setFechaNacimiento(sql);
+            cliente.setContra(contra);
             
         try {
             clienteNegocio.registrarCliente(cliente);

@@ -91,7 +91,7 @@ public class ClienteDAO implements IClienteDAO {
             conexion = conexionBD.crearConexion();
             conexion.setAutoCommit(false);
 
-            String sentenciaSql = "INSERT INTO Clientes (nombres, apellidoPaterno, apellidoMaterno, correoElectrónico, fechaNacimiento, ubicación, id_Ciudad) VALUES (?, ?, ?, ?, ?, POINT(?, ?), ?);";
+            String sentenciaSql = "INSERT INTO Clientes (nombres, apellidoPaterno, apellidoMaterno, correoElectrónico, fechaNacimiento, ubicación, id_Ciudad, contraseña) VALUES (?, ?, ?, ?, ?, POINT(?, ?), ?, ?);";
             preparedStatement = conexion.prepareStatement(sentenciaSql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, cliente.getNombres());
@@ -102,6 +102,7 @@ public class ClienteDAO implements IClienteDAO {
             preparedStatement.setFloat(6, cliente.getLongitud());
             preparedStatement.setFloat(7, cliente.getLatitud());
             preparedStatement.setInt(8, cliente.getIdCiudadCliente());
+            preparedStatement.setString(9, cliente.getContra());
 
             preparedStatement.executeUpdate();
 
@@ -199,5 +200,53 @@ public class ClienteDAO implements IClienteDAO {
                 throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
             }
         }
+    }
+    
+    
+    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws PersistenciaException{
+    
+//        ClienteEntidad cliEnti = new ClienteEntidad();
+//        
+//        cliEnti.setCorreoElectronico(cliente.getCorreoElectronico());
+//        cliEnti.setContra(cliente.getContra());
+//        
+//        try{
+//        
+//        // Establecer la conexion a la base de datos
+//        Connection conexion = this.conexionBD.crearConexion();
+//        
+//        
+//        // Sentencia SQL para seleccionar un alumno por su id
+//        String sentenciaSql = "SELECT * FROM Clientes WHERE correoElectrónico =  (?) AND contra = (?) ";
+//        
+//        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
+//        
+//        comandoSQL.setString(1, cliEnti.getCorreoElectronico());
+//        comandoSQL.setString(2, cliEnti.getContra());
+//        
+//        ResultSet resultado = comandoSQL.executeQuery();
+//        
+//        resultado.next();
+//        
+//        ClienteEntidad alumnoConsultado = new ClienteEntidad()(
+//            resultado.getInt(1),
+//            resultado.getString(2),
+//            resultado.getString(3),
+//            resultado.getString(4)   );
+//            
+//             System.out.println("21");
+//            return alumnoConsultado;
+//            
+//        }
+//
+//         catch(SQLException ex){
+//             //Capturar y manejar cualquier excepcion SQL que ocurra
+//             System.out.println("Ocurrio un error " + ex.getMessage());
+//         }
+
+         
+        return null;
+        
+    
     }
 }

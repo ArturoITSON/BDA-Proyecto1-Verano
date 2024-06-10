@@ -8,6 +8,8 @@ import entidad.ClienteEntidad;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistencia.IClienteDAO;
 import persistencia.PersistenciaException;
 
@@ -92,6 +94,7 @@ public class ClienteNegocio implements IClienteNegocio {
         nuevoCliente.setCorreoElectronico(cliente.getCorreoElectronico());
         nuevoCliente.setFechaNacimiento(cliente.getFechaNacimiento());
         nuevoCliente.setIdCiudadCliente(1);
+        nuevoCliente.setContra(cliente.getContra());
 
         try {
             clienteDAO.registrarCliente(nuevoCliente);
@@ -123,6 +126,25 @@ public class ClienteNegocio implements IClienteNegocio {
         }
     }
 
+    
+    @Override
+    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws NegocioException{
+    
+        ClienteEntidad ce = new ClienteEntidad();
+        
+        try {
+            ce = clienteDAO.buscarCliente(cliente);
+            
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return ce;
+    }
+    
+    
     @Override
     public void eliminarCliente(int idCliente) throws NegocioException {
         if (idCliente <= 0) {

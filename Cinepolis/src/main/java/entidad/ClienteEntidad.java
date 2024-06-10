@@ -16,6 +16,7 @@ public class ClienteEntidad {
     private String apellidoMaterno;
     private String correoElectronico;
     private Date fechaNacimiento;
+    private String contra;
     private float latitud;
     private float longitud;
     private int idCiudadCliente;
@@ -24,18 +25,34 @@ public class ClienteEntidad {
     public ClienteEntidad(){
     
     }
-    
-    public ClienteEntidad(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimineto, float latitud, float longitud, int idCiudadCliente) {
+
+    public ClienteEntidad(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimiento, String contra, float latitud, float longitud, int idCiudadCliente) {
         this.idCliente = idCliente;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correoElectronico = correoElectronico;
-        this.fechaNacimiento = fechaNacimineto;
+        this.fechaNacimiento = fechaNacimiento;
+        this.contra = contra;
         this.latitud = latitud;
         this.longitud = longitud;
         this.idCiudadCliente = idCiudadCliente;
     }
+
+    public ClienteEntidad(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimiento, float latitud, float longitud, int idCiudadCliente) {
+        this.idCliente = idCliente;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.correoElectronico = correoElectronico;
+        this.fechaNacimiento = fechaNacimiento;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.idCiudadCliente = idCiudadCliente;
+    }
+    
+    
+
 
     public int getIdCliente() {
         return idCliente;
@@ -107,6 +124,14 @@ public class ClienteEntidad {
 
     public void setIdCiudadCliente(int idCiudadCliente) {
         this.idCiudadCliente = idCiudadCliente;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
     }
     
     

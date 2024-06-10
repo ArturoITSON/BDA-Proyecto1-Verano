@@ -4,10 +4,19 @@
  */
 package presentacion;
 
+import entidad.ClienteEntidad;
 import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.IClienteNegocio;
+import negocio.NegocioException;
+import persistencia.ClienteDAO;
+import persistencia.ConexionBD;
+import persistencia.IClienteDAO;
+import persistencia.IConexionBD;
 
 /**
  *
@@ -18,15 +27,23 @@ import javax.swing.JLabel;
 public class FrmIniciarSesion extends javax.swing.JFrame {
 
     
+    private ClienteEntidad cliente = new ClienteEntidad();
+    private IClienteNegocio clienteNegocio;
+    private IConexionBD ConexionBD = new ConexionBD();
+    private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
+    
+    private FrmInicio inicio = new FrmInicio();
+    
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
     
     /**
      * Creates new form FrmIniciarSesion
      */
-    public FrmIniciarSesion() {
+    public FrmIniciarSesion(IClienteNegocio clienteNegocio) {
         initComponents();
         
+        this.clienteNegocio = clienteNegocio;
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
@@ -191,11 +208,33 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
         
-        if (campoTextoCorreo.getText() == "admin" && campoTextoContraseña.getText() == "admin"){
+        String correo = campoTextoCorreo.getText();
+        String contra = campoTextoContraseña.getText();
+        System.out.println(campoTextoCorreo.getText());
+        
+        
+        if (Integer.parseInt(correo) == 99 && Integer.parseInt(contra) == 11){ 
             FrmPantallaAdmin admin = new FrmPantallaAdmin();
             admin.setVisible(true);
-            
+            System.out.println("ss");
             this.setVisible(false);
+             
+        }
+        ClienteEntidad clienteBuscado = new ClienteEntidad();
+        clienteBuscado.setCorreoElectronico(correo);
+        clienteBuscado.setContra(contra);
+        
+        try {
+            cliente = clienteNegocio.buscarCliente(clienteBuscado);
+            
+            clienteBuscado.setApellidoMaterno(cliente.getApellidoMaterno());
+            clienteBuscado.setApellidoPaterno(cliente.getApellidoPaterno());
+            clienteBuscado.setFechaNacimiento(cliente.getFechaNacimiento());
+            clienteBuscado.setNombres(cliente.getNombres());
+            
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -209,40 +248,6 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmIniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmIniciarSesion().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;
