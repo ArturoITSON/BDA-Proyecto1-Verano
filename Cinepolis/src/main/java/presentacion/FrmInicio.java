@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import negocio.ClienteNegocio;
 import negocio.IClienteNegocio;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
 import negocio.PeliculaNegocio;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
@@ -33,6 +34,8 @@ public class FrmInicio extends javax.swing.JFrame {
         IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
         
         // CAPA negocio
+        ISucursalNegocio sucursalNegocio;    
+        
         IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
         IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
         
@@ -170,7 +173,7 @@ public class FrmInicio extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion(clienteNegocio, peliculaNegocio);
+        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion(clienteNegocio, peliculaNegocio, sucursalNegocio);
         
         iniciarSesion.setVisible(true);
         this.setVisible(false);

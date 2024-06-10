@@ -9,6 +9,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
 import persistencia.ConexionBD;
 import persistencia.IConexionBD;
 import persistencia.IPeliculaDAO;
@@ -22,7 +23,7 @@ import persistencia.PeliculaDAO;
  */
 public class FrmModificarFuncion extends javax.swing.JFrame {
 
-        
+    private ISucursalNegocio sucursalNegocio;    
     private PeliculaEntidad pelicula = new PeliculaEntidad();
     private IPeliculaNegocio peliculaNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
@@ -378,7 +379,7 @@ public class FrmModificarFuncion extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
 
         admin.setVisible(true);
         this.dispose();

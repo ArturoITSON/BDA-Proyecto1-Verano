@@ -3,6 +3,9 @@
  */
 package persistencia;
 
+import entidad.SucursalEntidad;
+import java.util.List;
+
 /**
  *
  * @author/(s): Daniel Alejandro Castro Félix - 235294.
@@ -11,4 +14,7 @@ package persistencia;
  */
 public interface ISucursalDAO {
     
+    
+        public List<SucursalEntidad> buscarSucursalesTabla() throws PersistenciaException;
+
 }

@@ -217,7 +217,7 @@ public class ClienteDAO implements IClienteDAO {
         
         
         // Sentencia SQL para seleccionar un alumno por su id
-        String sentenciaSql = "SELECT * FROM Clientes WHERE correoElectrónico =  (?) ";
+        String sentenciaSql = "SELECT idCliente, nombres, apellidoPaterno, apellidoMaterno, correoElectrónico, fechaNacimiento, ubicación, id_Ciudad FROM Clientes WHERE correoElectrónico =  (?) ";
         
         PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
         

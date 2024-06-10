@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
 import negocio.NegocioException;
 import persistencia.ConexionBD;
 import persistencia.IConexionBD;
@@ -34,7 +35,7 @@ import utilerias.JButtonRenderer;
  */
 public class FrmModificarPelicula extends javax.swing.JFrame {
 
-    
+    private ISucursalNegocio sucursalNegocio;
     private PeliculaEntidad pelicula = new PeliculaEntidad();
     private IPeliculaNegocio peliculaNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
@@ -47,10 +48,12 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
     /**
      * Creates new form FrmModificarPelicula
      */
-    public FrmModificarPelicula(IPeliculaNegocio peliculaNegocio) {
+    public FrmModificarPelicula(IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio) {
         initComponents();
         
         this.peliculaNegocio = peliculaNegocio;
+        this.sucursalNegocio = sucursalNegocio;
+        
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
         btnGuardar.setVisible(false);
@@ -512,7 +515,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
         
         admin.setVisible(true);
         this.dispose();

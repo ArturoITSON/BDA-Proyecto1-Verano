@@ -24,6 +24,11 @@ public class SucursalEntidad {
         this.ciudad = ciudad;
     }
 
+    public SucursalEntidad() {
+    }
+
+    
+    
     public int getIdSucursal() {
         return idSucursal;
     }

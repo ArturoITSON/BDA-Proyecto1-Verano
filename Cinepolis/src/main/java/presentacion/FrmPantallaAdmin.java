@@ -8,11 +8,15 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
 import negocio.PeliculaNegocio;
+import negocio.SucursalNegocio;
 import persistencia.ConexionBD;
 import persistencia.IConexionBD;
 import persistencia.IPeliculaDAO;
+import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -23,20 +27,28 @@ import persistencia.PeliculaDAO;
 public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     
-    
+    private ISucursalNegocio sucursalNegocio;
     private IPeliculaNegocio PeliculaNegocio;
+    
+    
+    
     private IConexionBD conexionBD = new ConexionBD();
+    private ISucursalDAO sucursalDAO = new SucursalDAO(conexionBD);
     private IPeliculaDAO peliculaDAO = new PeliculaDAO(conexionBD);
+    
+    
+    
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
     
     /**
      * Creates new form FrmPantallaAdmin
      */
-    public FrmPantallaAdmin(IPeliculaNegocio peliculaNegocio) {
+    public FrmPantallaAdmin(IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio) {
         initComponents();
         
         this.PeliculaNegocio = peliculaNegocio;
+        this.sucursalNegocio = sucursalNegocio;
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
         
@@ -204,7 +216,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     private void btnModificarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPeliculaActionPerformed
         // TODO add your handling code here:
-        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula( PeliculaNegocio);
+        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula(PeliculaNegocio, sucursalNegocio);
         
         modificarPelicula.setVisible(true);
         
@@ -223,7 +235,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     private void btnModificarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSucursalActionPerformed
         // TODO add your handling code here:
-        FrmModificarSucursal modificarSucursal = new FrmModificarSucursal();
+        FrmModificarSucursal modificarSucursal = new FrmModificarSucursal(sucursalNegocio, PeliculaNegocio);
         
         modificarSucursal.setVisible(true);
         

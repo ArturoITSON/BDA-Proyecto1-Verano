@@ -3,16 +3,25 @@
  */
 package presentacion;
 
+import dtos.SucursalTablaDTO;
 import entidad.PeliculaEntidad;
+import entidad.SucursalEntidad;
 import java.awt.Image;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
+import negocio.NegocioException;
 import persistencia.ConexionBD;
 import persistencia.IConexionBD;
 import persistencia.IPeliculaDAO;
+import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -22,11 +31,11 @@ import persistencia.PeliculaDAO;
  */
 public class FrmModificarSucursal extends javax.swing.JFrame {
 
-    
-    private PeliculaEntidad pelicula = new PeliculaEntidad();
     private IPeliculaNegocio peliculaNegocio;
+    private SucursalEntidad sucursal = new SucursalEntidad();
+    private ISucursalNegocio sucursalNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
-    private IPeliculaDAO peliculaDao = new PeliculaDAO(ConexionBD);
+    private ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
     
@@ -34,15 +43,96 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     /**
      * Creates new form FrmModificarSucursal
      */
-    public FrmModificarSucursal() {
+    public FrmModificarSucursal(ISucursalNegocio sucursalNegocio, IPeliculaNegocio peliculaNegocio) {
         initComponents();
+        
+        this.sucursalNegocio = sucursalNegocio;
+        this.peliculaNegocio = peliculaNegocio;
         
         btnGuardar.setVisible(false);
         btnEliminar.setVisible(false);        
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
+        
+        cargarMetodosIniciales();
+        
 
     }
     
+    
+    private void cargarMetodosIniciales(){
+        this.cargarConfiguracionInicialTablaSucursales();
+        this.cargarSucursalesEnTabla();
+        
+    }
+
+
+    private void cargarConfiguracionInicialTablaSucursales() {
+            final int columnaId = 0;
+
+
+    }
+    
+    private int getIdSeleccionadoTablaSucursales() {
+        int indiceFilaSeleccionada = this.tblSucursales.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblSucursales.getModel();
+            int indiceColumnaId = 0;
+            int idSocioSeleccionado = (int) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return idSocioSeleccionado;
+        } else {
+            return 0;
+        }
+    }
+
+    private void editar() {
+        //Metodo para regresar la sucursal seleccionada
+        int id = this.getIdSeleccionadoTablaSucursales();
+
+
+            
+        
+    }
+
+    private void eliminar() {
+        //Metodo para regresar la sucursal seleccionada
+        int id = this.getIdSeleccionadoTablaSucursales();
+    }
+    
+    private void llenarTablaSucursales(List<SucursalTablaDTO> peliculasLista) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSucursales.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (peliculasLista != null) {
+            peliculasLista.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getIdSucursal();
+                fila[1] = row.getNombre();
+                fila[2] = row.getCiudad();
+               // fila[3] = row.get();
+                fila[4] = row.getLatitud();
+                fila[5] = row.getLongitud();
+
+                modeloTabla.addRow(fila);
+            });
+        }
+    }
+     
+    private void cargarSucursalesEnTabla() {
+        try {
+            List<SucursalTablaDTO> sucursales = this.sucursalNegocio.buscarSucursalesTabla();
+            this.llenarTablaSucursales(sucursales);
+            
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+            System.out.println("aqui");
+        }
+    }    
     
     private void setImagenLabel(JLabel nombreJlb, String ruta){
     
@@ -71,7 +161,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jblCinepolisLogo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSucursales = new javax.swing.JTable();
         btnEliminar = new javax.swing.JButton();
         lblModificarSucursal = new javax.swing.JLabel();
         campoTextoNombre = new javax.swing.JTextField();
@@ -114,7 +204,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSucursales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -133,7 +223,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblSucursales);
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
@@ -355,7 +445,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
 
         admin.setVisible(true);
         this.dispose();
@@ -373,40 +463,6 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmModificarSucursal().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -421,7 +477,6 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jblCinepolisLogo;
     private javax.swing.JLabel lblCiudad;
     private javax.swing.JLabel lblLatitud;
@@ -429,5 +484,6 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     private javax.swing.JLabel lblModificarSucursal;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblSalas;
+    private javax.swing.JTable tblSucursales;
     // End of variables declaration//GEN-END:variables
 }

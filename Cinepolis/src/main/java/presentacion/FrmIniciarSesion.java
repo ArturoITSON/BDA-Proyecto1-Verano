@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import negocio.IClienteNegocio;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
 import negocio.NegocioException;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
@@ -29,6 +30,8 @@ import persistencia.IConexionBD;
 public class FrmIniciarSesion extends javax.swing.JFrame {
 
     
+    private ISucursalNegocio sucursalNegocio;    
+
     private ClienteEntidad cliente = new ClienteEntidad();
     private IClienteNegocio clienteNegocio;
     private IPeliculaNegocio peliculaNegocio;
@@ -43,11 +46,12 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     /**
      * Creates new form FrmIniciarSesion
      */
-    public FrmIniciarSesion(IClienteNegocio clienteNegocio, IPeliculaNegocio peliculaNegocio) {
+    public FrmIniciarSesion(IClienteNegocio clienteNegocio, IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio) {
         initComponents();
         
         this.clienteNegocio = clienteNegocio;
         this.peliculaNegocio = peliculaNegocio;
+        this.sucursalNegocio = sucursalNegocio;
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
@@ -233,7 +237,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             System.out.println("");
             
             if (campoTextoCorreo.getText().equals("admin")){ 
-            FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
+            FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
             admin.setVisible(true);
             System.out.println("ss");
             this.setVisible(false);
