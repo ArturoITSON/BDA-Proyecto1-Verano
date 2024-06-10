@@ -50,6 +50,17 @@ public class ClienteEntidad {
         this.longitud = longitud;
         this.idCiudadCliente = idCiudadCliente;
     }
+
+    public ClienteEntidad(int idCliente, String nombres, String apellidoPaterno, String apellidoMaterno, String correoElectronico, Date fechaNacimiento, String contra, int idCiudadCliente) {
+        this.idCliente = idCliente;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.correoElectronico = correoElectronico;
+        this.fechaNacimiento = fechaNacimiento;
+        this.contra = contra;
+        this.idCiudadCliente = idCiudadCliente;
+    }
     
     
 

@@ -235,9 +235,8 @@ public class ClienteDAO implements IClienteDAO {
             resultado.getString(4),
             resultado.getString(5),
             resultado.getDate(6),
-            resultado.getFloat(7),
-            resultado.getFloat(8),
-            resultado.getInt(9)
+            resultado.getString(7),
+            resultado.getInt(8)
  
         );
             
