@@ -37,7 +37,7 @@ public class SucursalDAO implements ISucursalDAO{
 
         try {
             conexion = this.conexionBD.crearConexion();
-            String codigoSQL = "SELECT idSucursal, nombre, duración, latitud, longitud, id_Ciudad FROM Sucursales";
+            String codigoSQL = "SELECT idSucursal, nombre, duración, latitud, longitud, id_Ciudad, id_Sala FROM Sucursales";
             comandoSQL = conexion.createStatement();
             resultado = comandoSQL.executeQuery(codigoSQL);
 

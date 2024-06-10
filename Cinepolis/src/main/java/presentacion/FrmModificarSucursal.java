@@ -42,12 +42,12 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     
     /**
      * Creates new form FrmModificarSucursal
+     * @param sucursalNegocio
      */
-    public FrmModificarSucursal(ISucursalNegocio sucursalNegocio, IPeliculaNegocio peliculaNegocio) {
+    public FrmModificarSucursal(ISucursalNegocio sucursalNegocio) {
         initComponents();
         
         this.sucursalNegocio = sucursalNegocio;
-        this.peliculaNegocio = peliculaNegocio;
         
         btnGuardar.setVisible(false);
         btnEliminar.setVisible(false);        
@@ -59,13 +59,16 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     }
     
     
-    private void cargarMetodosIniciales(){
+    
+   private void cargarMetodosIniciales(){
         this.cargarConfiguracionInicialTablaSucursales();
         this.cargarSucursalesEnTabla();
         
     }
-
-
+    
+      
+    
+    
     private void cargarConfiguracionInicialTablaSucursales() {
             final int columnaId = 0;
 
@@ -86,7 +89,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     }
 
     private void editar() {
-        //Metodo para regresar la sucursal seleccionada
+        //Metodo para regresar el alumno seleccionado
         int id = this.getIdSeleccionadoTablaSucursales();
 
 
@@ -95,11 +98,11 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     }
 
     private void eliminar() {
-        //Metodo para regresar la sucursal seleccionada
+        //Metodo para regresar el alumno seleccionado
         int id = this.getIdSeleccionadoTablaSucursales();
     }
     
-    private void llenarTablaSucursales(List<SucursalTablaDTO> peliculasLista) {
+    private void llenarTablaSucursales(List<SucursalTablaDTO> sucursalesLista) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblSucursales.getModel();
 
         if (modeloTabla.getRowCount() > 0) {
@@ -108,13 +111,13 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
             }
         }
 
-        if (peliculasLista != null) {
-            peliculasLista.forEach(row -> {
-                Object[] fila = new Object[7];
+        if (sucursalesLista != null) {
+            sucursalesLista.forEach(row -> {
+                Object[] fila = new Object[6];
                 fila[0] = row.getIdSucursal();
                 fila[1] = row.getNombre();
                 fila[2] = row.getCiudad();
-               // fila[3] = row.get();
+                fila[3] = row.getSalas();
                 fila[4] = row.getLatitud();
                 fila[5] = row.getLongitud();
 
@@ -127,13 +130,16 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
         try {
             List<SucursalTablaDTO> sucursales = this.sucursalNegocio.buscarSucursalesTabla();
             this.llenarTablaSucursales(sucursales);
-            
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
             System.out.println("aqui");
         }
     }    
     
+    
+    
+    
+ 
     private void setImagenLabel(JLabel nombreJlb, String ruta){
     
         ImageIcon image = new ImageIcon(ruta);

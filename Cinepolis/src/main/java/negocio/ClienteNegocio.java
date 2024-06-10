@@ -41,7 +41,7 @@ public class ClienteNegocio implements IClienteNegocio {
     @Override
      public ClienteEntidad buscarCliente(ClienteEntidad clienteEntidad) throws NegocioException {
         try {
-            ClienteEntidad cliente = clienteDAO.buscarClientePorCorreoYContraseña(clienteEntidad.getCorreoElectronico(), clienteEntidad.getContra());
+            ClienteEntidad cliente = clienteDAO.buscarCliente(clienteEntidad);
             if (cliente == null) {
                 throw new NegocioException("Usuario o contraseña incorrectos");
             }

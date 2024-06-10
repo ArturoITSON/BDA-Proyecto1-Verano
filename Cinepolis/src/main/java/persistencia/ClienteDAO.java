@@ -292,4 +292,9 @@ public class ClienteDAO implements IClienteDAO {
         }
     }
 }
+
+//    @Override
+//    public ClienteEntidad buscarClientePorCorreoYContraseña(String correoElectronico, String contra) throws PersistenciaException {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 }

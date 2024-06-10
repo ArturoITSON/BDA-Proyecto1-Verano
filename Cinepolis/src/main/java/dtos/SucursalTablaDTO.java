@@ -15,6 +15,33 @@ public class SucursalTablaDTO {
     private float latitud;
     private float longitud;
     private int ciudad;
+    private int salas;
+
+    public SucursalTablaDTO(int idSucursal, String nombre, float latitud, float longitud, int ciudad, int salas) {
+        this.idSucursal = idSucursal;
+        this.nombre = nombre;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.ciudad = ciudad;
+        this.salas = salas;
+    }
+
+    public SucursalTablaDTO(int idSucursal, String nombre, float latitud, float longitud, int ciudad) {
+        this.idSucursal = idSucursal;
+        this.nombre = nombre;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.ciudad = ciudad;
+    }
+
+    public int getSalas() {
+        return salas;
+    }
+
+    public void setSalas(int salas) {
+        this.salas = salas;
+    }
+    
     
     public SucursalTablaDTO() {
         

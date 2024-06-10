@@ -17,7 +17,9 @@ import persistencia.ConexionBD;
 import persistencia.IClienteDAO;
 import persistencia.IConexionBD;
 import persistencia.IPeliculaDAO;
+import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -32,6 +34,7 @@ public class FrmInicio extends javax.swing.JFrame {
         IConexionBD ConexionBD = new ConexionBD();
         IClienteDAO clienteDAO = new ClienteDAO(ConexionBD);
         IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
+        ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
         
         // CAPA negocio
         ISucursalNegocio sucursalNegocio;    

@@ -20,5 +20,5 @@ public interface IClienteDAO {
     public void eliminarCliente(int idCliente) throws PersistenciaException;
     public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws PersistenciaException;
 
-    public ClienteEntidad buscarClientePorCorreoYContraseña(String correoElectronico, String contra) throws PersistenciaException;
+    //public ClienteEntidad buscarClientePorCorreoYContraseña(String correoElectronico, String contra) throws PersistenciaException;
 }

@@ -15,6 +15,7 @@ public class SucursalEntidad {
     private float latitud;
     private float longitud;
     private int ciudad;
+    private int salas;
 
     public SucursalEntidad(int idSucursal, String nombre, float latitud, float longitud, int ciudad) {
         this.idSucursal = idSucursal;
@@ -25,6 +26,29 @@ public class SucursalEntidad {
     }
 
     public SucursalEntidad() {
+    }
+
+    public SucursalEntidad(int idSucursal, String nombre, float latitud, float longitud, int ciudad, int salas) {
+        this.idSucursal = idSucursal;
+        this.nombre = nombre;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.ciudad = ciudad;
+        this.salas = salas;
+    }
+
+    
+    
+    
+    
+    
+    
+    public int getSalas() {
+        return salas;
+    }
+
+    public void setSucursal(int salas) {
+        this.salas = salas;
     }
 
     

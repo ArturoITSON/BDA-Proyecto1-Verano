@@ -235,7 +235,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     private void btnModificarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSucursalActionPerformed
         // TODO add your handling code here:
-        FrmModificarSucursal modificarSucursal = new FrmModificarSucursal(sucursalNegocio, PeliculaNegocio);
+        FrmModificarSucursal modificarSucursal = new FrmModificarSucursal(sucursalNegocio);
         
         modificarSucursal.setVisible(true);
         

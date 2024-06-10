@@ -21,16 +21,22 @@ public class SucursalNegocio implements ISucursalNegocio {
     
     private ISucursalDAO sucursalDAO;
 
-    public SucursalNegocio(ISucursalDAO SucursalDAO) {
+    public SucursalNegocio(ISucursalDAO sucursalDAO) {
         this.sucursalDAO = sucursalDAO;
     }
 
     @Override
     public List<SucursalTablaDTO> buscarSucursalesTabla() throws NegocioException {
+        
         try {
+            
             List<SucursalEntidad> sucursales = this.sucursalDAO.buscarSucursalesTabla();
             return this.convertirSucursalTablaDTO(sucursales);
-        } catch (PersistenciaException ex) {
+            
+        }
+        
+        catch (PersistenciaException ex) {
+            System.out.println("aqio");
             System.out.println(ex.getMessage());
             throw new NegocioException(ex.getMessage());
         }
@@ -49,6 +55,7 @@ public class SucursalNegocio implements ISucursalNegocio {
             dto.setLatitud(sucursal.getLatitud());
             dto.setLongitud(sucursal.getLongitud());
             dto.setNombre(sucursal.getNombre());
+            dto.setSalas(sucursal.getSalas());
 
             sucursalDTO.add(dto);
         }
