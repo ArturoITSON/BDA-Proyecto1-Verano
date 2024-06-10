@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import negocio.IClienteNegocio;
 import negocio.NegocioException;
 import persistencia.ClienteDAO;
@@ -213,13 +214,13 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
         System.out.println(campoTextoCorreo.getText());
         
         
-        if (Integer.parseInt(correo) == 99 && Integer.parseInt(contra) == 11){ 
-            FrmPantallaAdmin admin = new FrmPantallaAdmin();
-            admin.setVisible(true);
-            System.out.println("ss");
-            this.setVisible(false);
-             
-        }
+//        if (Integer.parseInt(correo) == 99 && Integer.parseInt(contra) == 11){ 
+//            FrmPantallaAdmin admin = new FrmPantallaAdmin();
+//            admin.setVisible(true);
+//            System.out.println("ss");
+//            this.setVisible(false);
+//             
+//        }
         ClienteEntidad clienteBuscado = new ClienteEntidad();
         clienteBuscado.setCorreoElectronico(correo);
         clienteBuscado.setContra(contra);
@@ -232,9 +233,10 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             clienteBuscado.setFechaNacimiento(cliente.getFechaNacimiento());
             clienteBuscado.setNombres(cliente.getNombres());
             
-            
+            JOptionPane.showMessageDialog(this, cliente.getFechaNacimiento());
         } catch (NegocioException ex) {
             Logger.getLogger(FrmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ini");
         }
         
         

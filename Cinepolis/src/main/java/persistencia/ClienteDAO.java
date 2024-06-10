@@ -205,44 +205,52 @@ public class ClienteDAO implements IClienteDAO {
     
     public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws PersistenciaException{
     
-//        ClienteEntidad cliEnti = new ClienteEntidad();
-//        
-//        cliEnti.setCorreoElectronico(cliente.getCorreoElectronico());
-//        cliEnti.setContra(cliente.getContra());
-//        
-//        try{
-//        
-//        // Establecer la conexion a la base de datos
-//        Connection conexion = this.conexionBD.crearConexion();
-//        
-//        
-//        // Sentencia SQL para seleccionar un alumno por su id
-//        String sentenciaSql = "SELECT * FROM Clientes WHERE correoElectrónico =  (?) AND contra = (?) ";
-//        
-//        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
-//        
-//        comandoSQL.setString(1, cliEnti.getCorreoElectronico());
-//        comandoSQL.setString(2, cliEnti.getContra());
-//        
-//        ResultSet resultado = comandoSQL.executeQuery();
-//        
-//        resultado.next();
-//        
-//        ClienteEntidad alumnoConsultado = new ClienteEntidad()(
-//            resultado.getInt(1),
-//            resultado.getString(2),
-//            resultado.getString(3),
-//            resultado.getString(4)   );
-//            
-//             System.out.println("21");
-//            return alumnoConsultado;
-//            
-//        }
-//
-//         catch(SQLException ex){
-//             //Capturar y manejar cualquier excepcion SQL que ocurra
-//             System.out.println("Ocurrio un error " + ex.getMessage());
-//         }
+        ClienteEntidad cliEnti = new ClienteEntidad();
+        
+        cliEnti.setCorreoElectronico(cliente.getCorreoElectronico());
+        cliEnti.setContra(cliente.getContra());
+        
+        try{
+        
+        // Establecer la conexion a la base de datos
+        Connection conexion = this.conexionBD.crearConexion();
+        
+        
+        // Sentencia SQL para seleccionar un alumno por su id
+        String sentenciaSql = "SELECT * FROM Clientes WHERE correoElectrónico =  (?) ";
+        
+        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
+        
+        comandoSQL.setString(1, cliEnti.getCorreoElectronico());
+        
+        ResultSet resultado = comandoSQL.executeQuery();
+        
+        resultado.next();
+            System.out.println("ss");
+        
+        ClienteEntidad ClienteConsultado = new ClienteEntidad(
+            resultado.getInt(1),
+            resultado.getString(2),
+            resultado.getString(3),
+            resultado.getString(4),
+            resultado.getString(5),
+            resultado.getDate(6),
+            resultado.getFloat(7),
+            resultado.getFloat(8),
+            resultado.getInt(9)
+ 
+        );
+            
+             System.out.println("21");
+            return ClienteConsultado;
+            
+        }
+
+         catch(SQLException ex){
+             //Capturar y manejar cualquier excepcion SQL que ocurra
+             System.out.println("Ocurrio un errorS " + ex.getMessage());
+             System.out.println("aqui dao");
+         }
 
          
         return null;
