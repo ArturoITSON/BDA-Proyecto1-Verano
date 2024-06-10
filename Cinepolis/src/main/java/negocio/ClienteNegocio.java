@@ -37,6 +37,19 @@ public class ClienteNegocio implements IClienteNegocio {
             throw new NegocioException(ex.getMessage());
         }
     }
+    
+    @Override
+     public ClienteEntidad buscarCliente(ClienteEntidad clienteEntidad) throws NegocioException {
+        try {
+            ClienteEntidad cliente = clienteDAO.buscarClientePorCorreoYContraseña(clienteEntidad.getCorreoElectronico(), clienteEntidad.getContra());
+            if (cliente == null) {
+                throw new NegocioException("Usuario o contraseña incorrectos");
+            }
+            return cliente;
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar cliente");
+        }
+    }
 
     private List<ClienteTablaDTO> convertirClienteTablaDTO(List<ClienteEntidad> clientes) throws NegocioException {
         if (clientes == null) {
@@ -127,22 +140,22 @@ public class ClienteNegocio implements IClienteNegocio {
     }
 
     
-    @Override
-    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws NegocioException{
-    
-        ClienteEntidad ce = new ClienteEntidad();
-        
-        try {
-            ce = clienteDAO.buscarCliente(cliente);
-            
-            
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        return ce;
-    }
+//    @Override
+//    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws NegocioException{
+//    
+//        ClienteEntidad ce = new ClienteEntidad();
+//        
+//        try {
+//            ce = clienteDAO.buscarCliente(cliente);
+//            
+//            
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        
+//        return ce;
+//    }
     
     
     @Override

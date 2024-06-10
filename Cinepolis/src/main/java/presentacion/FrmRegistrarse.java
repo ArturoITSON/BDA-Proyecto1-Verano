@@ -1,11 +1,12 @@
 /**
- * 
+ *
  */
 package presentacion;
 
 import entidad.ClienteEntidad;
 import java.awt.Image;
 import java.sql.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -19,54 +20,60 @@ import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
 import persistencia.IClienteDAO;
 import persistencia.IConexionBD;
+import persistencia.PersistenciaException;
 
 /**
  *
- * @author/(s): Daniel Alejandro Castro Félix - 235294.
- *              René Ezequiel Figueroa López - 228691.
- *              Sergio Arturo García Ramírez - 233316.
+ * @author/(s): Daniel Alejandro Castro Félix - 235294. René Ezequiel Figueroa
+ * López - 228691. Sergio Arturo García Ramírez - 233316.
  */
 public class FrmRegistrarse extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmRegistrarse
      */
-    
     private ClienteEntidad cliente = new ClienteEntidad();
     private IClienteNegocio clienteNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
     private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
-    
+
     private FrmInicio inicio = new FrmInicio();
-    
-    
+
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
-    
     public FrmRegistrarse(IClienteNegocio clienteNegocio) {
         initComponents();
-        
+        cargarCiudades();
         this.clienteNegocio = clienteNegocio;
-        
-        
+
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
     }
-    
-    
-    private void setImagenLabel(JLabel nombreJlb, String ruta){
-    
+
+    private void setImagenLabel(JLabel nombreJlb, String ruta) {
+
         ImageIcon image = new ImageIcon(ruta);
-        
+
         Icon icon = new ImageIcon(
-       image.getImage().getScaledInstance(nombreJlb.getWidth(), nombreJlb.getHeight(), Image.SCALE_DEFAULT));
-        
+                image.getImage().getScaledInstance(nombreJlb.getWidth(), nombreJlb.getHeight(), Image.SCALE_DEFAULT));
+
         nombreJlb.setIcon(icon);
-        
+
         this.repaint();
-   
-    }    
+
+    }
     
+    private void cargarCiudades() {
+        ClienteDAO clienteDAO = new ClienteDAO(new ConexionBD()); // Suponiendo que tienes una implementación de IConexionBD
+        try {
+            List<String> ciudades = clienteDAO.obtenerCiudades();
+            for (String ciudad : ciudades) {
+                cbCiudades.addItem(ciudad);
+            }
+        } catch (PersistenciaException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar las ciudades: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,7 +89,6 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         jblCinepolisLogo = new javax.swing.JLabel();
         campoTextoApellidoMaterno = new javax.swing.JTextField();
         campoTextoFecha = new javax.swing.JTextField();
-        campoTextoCiudad = new javax.swing.JTextField();
         campoTextoNombre2 = new javax.swing.JTextField();
         campoTextoApellidoPaterno = new javax.swing.JTextField();
         campoTextoCorreo = new javax.swing.JTextField();
@@ -96,6 +102,7 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         lblCorreo = new javax.swing.JLabel();
         btnRegistrarse = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        cbCiudades = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registrarse");
@@ -127,8 +134,6 @@ public class FrmRegistrarse extends javax.swing.JFrame {
 
         campoTextoFecha.setBackground(new java.awt.Color(136, 201, 239));
 
-        campoTextoCiudad.setBackground(new java.awt.Color(136, 201, 239));
-
         campoTextoNombre2.setBackground(new java.awt.Color(136, 201, 239));
 
         campoTextoApellidoPaterno.setBackground(new java.awt.Color(136, 201, 239));
@@ -143,36 +148,28 @@ public class FrmRegistrarse extends javax.swing.JFrame {
         campoTextoContraseña.setBackground(new java.awt.Color(136, 201, 239));
 
         lblApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblApellidoMaterno.setForeground(new java.awt.Color(0, 0, 0));
         lblApellidoMaterno.setText("Apellido Materno");
 
         lblNombre1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblNombre1.setForeground(new java.awt.Color(0, 0, 0));
         lblNombre1.setText("Nombre");
 
         lblCiudad.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblCiudad.setForeground(new java.awt.Color(0, 0, 0));
         lblCiudad.setText("Ciudad");
 
         lblNacimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblNacimiento.setForeground(new java.awt.Color(0, 0, 0));
         lblNacimiento.setText("Fecha de nacimiento (dd/mm/aaaa)");
 
         lblApellidoPaterno2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblApellidoPaterno2.setForeground(new java.awt.Color(0, 0, 0));
         lblApellidoPaterno2.setText("Apellido Paterno");
 
         lblContraseña.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblContraseña.setForeground(new java.awt.Color(0, 0, 0));
         lblContraseña.setText("Contraseña");
 
         lblCorreo.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        lblCorreo.setForeground(new java.awt.Color(0, 0, 0));
         lblCorreo.setText("Correo Electronico");
 
         btnRegistrarse.setBackground(new java.awt.Color(8, 148, 249));
         btnRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnRegistrarse.setForeground(new java.awt.Color(0, 0, 0));
         btnRegistrarse.setText("Registrarse");
         btnRegistrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +180,6 @@ public class FrmRegistrarse extends javax.swing.JFrame {
 
         btnCancelar.setBackground(new java.awt.Color(240, 76, 76));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelar.setText("Cancelar");
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -213,22 +209,20 @@ public class FrmRegistrarse extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(campoTextoCiudad)
-                                        .addGap(206, 206, 206))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(campoTextoApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                        .addComponent(campoTextoApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblApellidoPaterno2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(26, 26, 26)
                                 .addComponent(lblApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbCiudades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(campoTextoApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(26, 26, 26)
+                                .addComponent(campoTextoApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoTextoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,10 +255,10 @@ public class FrmRegistrarse extends javax.swing.JFrame {
                     .addComponent(lblNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoTextoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoTextoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                    .addComponent(cbCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -272,7 +266,7 @@ public class FrmRegistrarse extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoTextoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoTextoContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,43 +294,41 @@ public class FrmRegistrarse extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         // TODO add your handling code here:
-        
+
         String nombres = campoTextoNombre2.getText();
         String apellidoP = campoTextoApellidoPaterno.getText();
         String apellidoM = campoTextoApellidoMaterno.getText();
         String correo = campoTextoCorreo.getText();
         String contra = campoTextoContraseña.getText();
-        String ciudad = campoTextoCiudad.getText();
         String fecha = campoTextoFecha.getText();
-            String dia = fecha.substring(0, 1);
-            String mes = fecha.substring(4, 5);
-            String año = fecha.substring(7, 10);
-            
-            Date date = new Date(Integer.valueOf(año), Integer.valueOf(mes), Integer.valueOf(dia));
-                        
-            date.setMonth(Integer.valueOf(mes));
-            date.setYear(Integer.parseInt(año));
-            date.setDate(Integer.parseInt(dia));
-        
-            cliente.setApellidoMaterno(apellidoM);
-            cliente.setApellidoPaterno(apellidoP);
-            cliente.setCorreoElectronico(correo);
-            cliente.setNombres(nombres);
-            cliente.setFechaNacimiento(date);
-            cliente.setContra(contra);
-            
+        String ciudad = (String) cbCiudades.getSelectedItem(); // Obtener la ciudad seleccionada del ComboBox
+
+        // Convertir la fecha a un objeto Date
+        String[] partesFecha = fecha.split("/");
+        int dia = Integer.parseInt(partesFecha[0]);
+        int mes = Integer.parseInt(partesFecha[1]);
+        int año = Integer.parseInt(partesFecha[2]);
+        Date fechaNacimiento = new Date(año - 1900, mes - 1, dia);
+
+        // Crear un objeto Cliente con los datos obtenidos
+        ClienteEntidad cliente = new ClienteEntidad();
+        cliente.setApellidoMaterno(apellidoM);
+        cliente.setApellidoPaterno(apellidoP);
+        cliente.setCorreoElectronico(correo);
+        cliente.setNombres(nombres);
+        cliente.setFechaNacimiento(fechaNacimiento);
+        cliente.setContra(contra);
+        cliente.setCiudad(ciudad); // Establecer la ciudad seleccionada en el objeto Cliente
+
         try {
+            // Registrar el cliente utilizando el método registrarCliente de ClienteNegocio
             clienteNegocio.registrarCliente(cliente);
-            JOptionPane.showMessageDialog(this, "Cliente registrado con exito");
+            JOptionPane.showMessageDialog(this, "Cliente registrado con éxito");
             this.dispose();
             inicio.setVisible(true);
-            
         } catch (NegocioException ex) {
             Logger.getLogger(FrmRegistrarse.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-            
-        
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -351,11 +343,11 @@ public class FrmRegistrarse extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrarse;
     private javax.swing.JTextField campoTextoApellidoMaterno;
     private javax.swing.JTextField campoTextoApellidoPaterno;
-    private javax.swing.JTextField campoTextoCiudad;
     private javax.swing.JTextField campoTextoContraseña;
     private javax.swing.JTextField campoTextoCorreo;
     private javax.swing.JTextField campoTextoFecha;
     private javax.swing.JTextField campoTextoNombre2;
+    private javax.swing.JComboBox<String> cbCiudades;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jblCinepolisLogo;
