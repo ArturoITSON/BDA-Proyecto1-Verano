@@ -256,4 +256,40 @@ public class ClienteDAO implements IClienteDAO {
         
     
     }
+    
+    public List<String> obtenerCiudades() throws PersistenciaException {
+    List<String> ciudades = new ArrayList<>();
+    Connection conexion = null;
+    Statement comandoSQL = null;
+    ResultSet resultado = null;
+
+    try {
+        conexion = this.conexionBD.crearConexion();
+        String codigoSQL = "SELECT nombre FROM Ciudades";
+        comandoSQL = conexion.createStatement();
+        resultado = comandoSQL.executeQuery(codigoSQL);
+
+        while (resultado.next()) {
+            ciudades.add(resultado.getString("nombre"));
+        }
+        return ciudades;
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+        throw new PersistenciaException("Ocurrió un error al leer la base de datos de ciudades, inténtelo de nuevo.");
+    } finally {
+        try {
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (comandoSQL != null) {
+                comandoSQL.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
+        }
+    }
+}
 }

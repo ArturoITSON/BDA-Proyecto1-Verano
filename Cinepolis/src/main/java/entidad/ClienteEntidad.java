@@ -20,7 +20,7 @@ public class ClienteEntidad {
     private float latitud;
     private float longitud;
     private int idCiudadCliente;
-
+    private String ciudad;
     
     public ClienteEntidad(){
     
@@ -145,6 +145,12 @@ public class ClienteEntidad {
         this.contra = contra;
     }
     
-    
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
     
 }
