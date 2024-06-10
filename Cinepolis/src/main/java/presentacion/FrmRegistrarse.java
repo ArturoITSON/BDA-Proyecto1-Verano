@@ -5,7 +5,6 @@ package presentacion;
 
 import entidad.ClienteEntidad;
 import java.awt.Image;
-import java.util.Calendar;
 import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -313,14 +312,17 @@ public class FrmRegistrarse extends javax.swing.JFrame {
             String mes = fecha.substring(4, 5);
             String año = fecha.substring(7, 10);
             
-            Date sql = new Date(Integer.valueOf(año), Integer.valueOf(mes), Integer.valueOf(dia));
-        
+            Date date = new Date(Integer.valueOf(año), Integer.valueOf(mes), Integer.valueOf(dia));
+                        
+            date.setMonth(Integer.valueOf(mes));
+            date.setYear(Integer.parseInt(año));
+            date.setDate(Integer.parseInt(dia));
         
             cliente.setApellidoMaterno(apellidoM);
             cliente.setApellidoPaterno(apellidoP);
             cliente.setCorreoElectronico(correo);
             cliente.setNombres(nombres);
-            cliente.setFechaNacimiento(sql);
+            cliente.setFechaNacimiento(date);
             cliente.setContra(contra);
             
         try {

@@ -34,7 +34,7 @@ public class PeliculaDAO implements IPeliculaDAO {
 
         try {
             conexion = this.conexionBD.crearConexion();
-            String codigoSQL = "SELECT idPelicula, titulo, duracion, sinopsis, trailer, idPais, idGenero, id_Clasificacion FROM Peliculas";
+            String codigoSQL = "SELECT idPelicula, titulo, duración, sinopsis, trailer, idPais, idGenero, id_Clasificacion FROM Peliculas";
             comandoSQL = conexion.createStatement();
             resultado = comandoSQL.executeQuery(codigoSQL);
 
@@ -69,7 +69,7 @@ public class PeliculaDAO implements IPeliculaDAO {
     private PeliculaEntidad convertirAEntidad(ResultSet resultado) throws SQLException {
         int id = resultado.getInt("idPelicula");
         String titulo = resultado.getString("titulo");
-        float duracion = resultado.getFloat("duracion");
+        float duracion = resultado.getFloat("duración");
         String sinopsis = resultado.getString("sinopsis");
         String trailer = resultado.getString("trailer");
         int paisOrigen = resultado.getInt("idPais");
@@ -89,7 +89,7 @@ public class PeliculaDAO implements IPeliculaDAO {
             conexion = conexionBD.crearConexion();
             conexion.setAutoCommit(false);
 
-            String sentenciaSql = "INSERT INTO Peliculas (titulo, duracion, sinopsis, trailer, idPais, idGenero, id_Clasificacion) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String sentenciaSql = "INSERT INTO Peliculas (titulo, duración, sinopsis, trailer, idPais, idGenero, id_Clasificacion) VALUES (?, ?, ?, ?, ?, ?, ?);";
             preparedStatement = conexion.prepareStatement(sentenciaSql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, pelicula.getTituloPelicula());
@@ -141,7 +141,7 @@ public class PeliculaDAO implements IPeliculaDAO {
 
         try {
             conexion = conexionBD.crearConexion();
-            String sentenciaSql = "UPDATE Peliculas SET titulo = ?, duracion = ?, sinopsis = ?, trailer = ?, idPais = ?, idGenero = ?, id_Clasificacion = ? WHERE idPelicula = ?";
+            String sentenciaSql = "UPDATE Peliculas SET titulo = ?, duración = ?, sinopsis = ?, trailer = ?, idPais = ?, idGenero = ?, id_Clasificacion = ? WHERE idPelicula = ?";
             preparedStatement = conexion.prepareStatement(sentenciaSql);
             preparedStatement.setString(1, pelicula.getTituloPelicula());
             preparedStatement.setFloat(2, pelicula.getDuracion());
@@ -196,4 +196,62 @@ public class PeliculaDAO implements IPeliculaDAO {
             }
         }
     }
+    
+    
+    
+    public PeliculaEntidad buscarPelicula(PeliculaEntidad peli) throws PersistenciaException{
+    
+        PeliculaEntidad nuevaPeli = new PeliculaEntidad();
+        
+        nuevaPeli.setIdPelicula(peli.getIdPelicula());
+        
+        try{
+        
+        // Establecer la conexion a la base de datos
+        Connection conexion = this.conexionBD.crearConexion();
+        
+        
+        // Sentencia SQL para seleccionar un alumno por su id
+        String sentenciaSql = "SELECT * FROM Peliculas WHERE idPelicula =  (?) ";
+        
+        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
+        
+        comandoSQL.setInt(1, nuevaPeli.getIdPelicula());
+        
+        ResultSet resultado = comandoSQL.executeQuery();
+        
+        resultado.next();
+            System.out.println("ss");
+        
+        PeliculaEntidad peliConsultada = new PeliculaEntidad(
+            resultado.getInt(1),
+            resultado.getString(2),
+            resultado.getInt(3),
+            resultado.getString(4),
+            resultado.getString(5),
+            resultado.getInt(6),
+            resultado.getInt(7),
+            resultado.getInt(8)
+ 
+        );
+            
+             System.out.println("21");
+            return peliConsultada;
+            
+        }
+
+         catch(SQLException ex){
+             //Capturar y manejar cualquier excepcion SQL que ocurra
+             System.out.println("Ocurrio un errorS " + ex.getMessage());
+             System.out.println("aqui dao");
+         }
+
+         
+        return null;
+        
+        
+    }
+
+    
+    
 }

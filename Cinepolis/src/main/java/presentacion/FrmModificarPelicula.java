@@ -3,10 +3,28 @@
  */
 package presentacion;
 
+import dtos.PeliculaTablaDTO;
+import entidad.PeliculaEntidad;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import negocio.IPeliculaNegocio;
+import negocio.NegocioException;
+import persistencia.ConexionBD;
+import persistencia.IConexionBD;
+import persistencia.IPeliculaDAO;
+import persistencia.PeliculaDAO;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
@@ -17,19 +35,28 @@ import javax.swing.JLabel;
 public class FrmModificarPelicula extends javax.swing.JFrame {
 
     
+    private PeliculaEntidad pelicula = new PeliculaEntidad();
+    private IPeliculaNegocio peliculaNegocio;
+    private IConexionBD ConexionBD = new ConexionBD();
+    private IPeliculaDAO peliculaDao = new PeliculaDAO(ConexionBD);
+    
+    
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
-
+    private static int id;
     
     /**
      * Creates new form FrmModificarPelicula
      */
-    public FrmModificarPelicula() {
+    public FrmModificarPelicula(IPeliculaNegocio peliculaNegocio) {
         initComponents();
         
+        this.peliculaNegocio = peliculaNegocio;
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
         btnGuardar.setVisible(false);
-        btnEliminar.setVisible(false);       
+        btnEliminar.setVisible(false);     
+        
+        cargarMetodosIniciales();
     }
     
     
@@ -47,6 +74,92 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
    
     }     
 
+    
+    
+    private void cargarMetodosIniciales(){
+        this.cargarConfiguracionInicialTablaPeliculas();
+        this.cargarPeliculasEnTabla();
+        
+        campoTextoClasificacion.setEditable(false);
+        campoTextoDuracion.setEditable(false);
+        campoTextoGenero.setEditable(false);
+        campoTextoPais.setEditable(false);
+        campoTextoSinopsis.setEditable(false);
+        campoTextoTitulo.setEditable(false);
+        campoTextoTrailer.setEditable(false);
+        
+        btnHecho.setVisible(false);
+    }
+    
+    
+    
+    private void cargarConfiguracionInicialTablaPeliculas() {
+            final int columnaId = 0;
+
+
+    }
+    
+    private int getIdSeleccionadoTablaPeliculas() {
+        int indiceFilaSeleccionada = this.tblPeliculas.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblPeliculas.getModel();
+            int indiceColumnaId = 0;
+            int idSocioSeleccionado = (int) modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId);
+            return idSocioSeleccionado;
+        } else {
+            return 0;
+        }
+    }
+
+    private void editar() {
+        //Metodo para regresar el alumno seleccionado
+        int id = this.getIdSeleccionadoTablaPeliculas();
+
+
+            
+        
+    }
+
+    private void eliminar() {
+        //Metodo para regresar el alumno seleccionado
+        int id = this.getIdSeleccionadoTablaPeliculas();
+    }
+    
+    private void llenarTablaPeliculas(List<PeliculaTablaDTO> peliculasLista) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) this.tblPeliculas.getModel();
+
+        if (modeloTabla.getRowCount() > 0) {
+            for (int i = modeloTabla.getRowCount() - 1; i > -1; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+
+        if (peliculasLista != null) {
+            peliculasLista.forEach(row -> {
+                Object[] fila = new Object[7];
+                fila[0] = row.getIdPelicula();
+                fila[1] = row.getTituloPelicula();
+                fila[2] = row.getDuracion();
+                fila[3] = row.getGeneroPelicula();
+                fila[4] = row.getClasificacionPelicula();
+                fila[5] = row.getSinopsis();
+                fila[6] = row.getTrailer();
+
+                modeloTabla.addRow(fila);
+            });
+        }
+    }
+     
+    private void cargarPeliculasEnTabla() {
+        try {
+            List<PeliculaTablaDTO> peliculas = this.peliculaNegocio.buscarPeliculasTabla();
+            this.llenarTablaPeliculas(peliculas);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Información", JOptionPane.ERROR_MESSAGE);
+            System.out.println("aqui");
+        }
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,7 +174,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         jblCinepolisLogo = new javax.swing.JLabel();
         lblModificarPelicula = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPeliculas = new javax.swing.JTable();
         campoTextoTitulo = new javax.swing.JTextField();
         campoTextoPais = new javax.swing.JTextField();
         campoTextoSinopsis = new javax.swing.JTextField();
@@ -80,10 +193,11 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         lblGenero = new javax.swing.JLabel();
         lblClasificacion = new javax.swing.JLabel();
         lblDuracion = new javax.swing.JLabel();
+        btnNuevoRegistro = new javax.swing.JButton();
+        btnHecho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modificar Pelicula");
-        setPreferredSize(null);
         setSize(new java.awt.Dimension(700, 550));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -112,7 +226,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         lblModificarPelicula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblModificarPelicula.setText("Modificar Pelicula");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -120,7 +234,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Duracion", "Genero", "Clasificacion", "Duracion", "Sinopsis", "Trailer"
+                "Id", "Titulo", "Duracion", "Genero", "Clasificacion", "Sinopsis", "Trailer"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -131,7 +245,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPeliculas);
 
         campoTextoTitulo.setBackground(new java.awt.Color(136, 201, 239));
         campoTextoTitulo.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +259,11 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         campoTextoSinopsis.setBackground(new java.awt.Color(136, 201, 239));
 
         campoTextoTrailer.setBackground(new java.awt.Color(136, 201, 239));
+        campoTextoTrailer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoTextoTrailerActionPerformed(evt);
+            }
+        });
 
         campoTextoGenero.setBackground(new java.awt.Color(136, 201, 239));
 
@@ -210,6 +329,24 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         lblDuracion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         lblDuracion.setText("Duracion");
 
+        btnNuevoRegistro.setBackground(new java.awt.Color(8, 148, 249));
+        btnNuevoRegistro.setText("Nuevo");
+        btnNuevoRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoRegistroActionPerformed(evt);
+            }
+        });
+
+        btnHecho.setBackground(new java.awt.Color(8, 148, 249));
+        btnHecho.setText("Hecho");
+        btnHecho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHecho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHechoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -237,7 +374,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                                         .addComponent(lblPais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblClasificacion))
                                 .addGap(39, 39, 39)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(campoTextoSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,14 +391,18 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                                                 .addComponent(btnGuardar)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnEliminar))))
-                                    .addComponent(lblDuracion)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblDuracion)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnNuevoRegistro)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnEditar))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(180, 180, 180)
+                                .addComponent(btnHecho)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnEditar)
-                .addGap(75, 75, 75))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,8 +428,10 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                         .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEditar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEditar)
+                        .addComponent(btnNuevoRegistro)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoTextoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoTextoClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,8 +442,10 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnRegresar)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnHecho))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,15 +465,54 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        
+        
+        String titulo = campoTextoTitulo.getText();
+        String duracion = campoTextoDuracion.getText();
+        String genero = campoTextoGenero.getText();
+        String clasificacion = campoTextoClasificacion.getText();
+        String sinopsis = campoTextoSinopsis.getText();
+        String trailer = campoTextoTrailer.getText();
+        
+       pelicula.setClasificacionPelicula(1);
+        pelicula.setDuracion(Float.parseFloat(duracion));
+        pelicula.setPaisOrigen(1);
+        pelicula.setSinopsis(sinopsis);
+        pelicula.setTituloPelicula(titulo);
+        pelicula.setTrailer(trailer);
+        pelicula.setGeneroPelicula(1);
+        
+        
+        try {
+            peliculaNegocio.registrarPelicula(pelicula);
+            JOptionPane.showMessageDialog(this, "Pelicula agregada");
+            this.cargarPeliculasEnTabla();
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnEliminar.setVisible(false);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        
+        
+        try {            
+            peliculaNegocio.eliminarPelicula(id);
+            
+            JOptionPane.showMessageDialog(this, "Pelicula Eliminada");
+            btnEliminar.setVisible(false);
+            this.cargarPeliculasEnTabla();
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin();
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
         
         admin.setVisible(true);
         this.dispose();
@@ -336,51 +520,111 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        String texto = JOptionPane.showInputDialog("Ingrese el id de la pelicula");
+        
+        id = Integer.parseInt(texto);
+        
+        PeliculaEntidad nueva = new PeliculaEntidad();
+        
+        nueva.setIdPelicula(id);
+        
+        
+        campoTextoClasificacion.setEditable(true);
+        campoTextoDuracion.setEditable(true);
+        campoTextoGenero.setEditable(true);
+        campoTextoPais.setEditable(true);
+        campoTextoSinopsis.setEditable(true);
+        campoTextoTitulo.setEditable(true);
+        campoTextoTrailer.setEditable(true);
+        
+        btnHecho.setVisible(true);
+        btnEliminar.setVisible(true);
+        
+        try {
+            pelicula = peliculaNegocio.buscarPelicula(nueva);
+            
+            campoTextoClasificacion.setText(Integer.toString(pelicula.getClasificacionPelicula()));
+            campoTextoDuracion.setText(Float.toString(pelicula.getDuracion()));
+            campoTextoGenero.setText(Integer.toString(pelicula.getGeneroPelicula()));
+            campoTextoPais.setText(Integer.toString(pelicula.getPaisOrigen()));
+            campoTextoSinopsis.setText(pelicula.getSinopsis());
+            campoTextoTitulo.setText(pelicula.getTituloPelicula());
+            campoTextoTrailer.setText(pelicula.getTrailer());
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void campoTextoTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoTextoTituloActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarPelicula.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnNuevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoRegistroActionPerformed
+        // TODO add your handling code here:
+        campoTextoClasificacion.setEditable(true);
+        campoTextoDuracion.setEditable(true);
+        campoTextoGenero.setEditable(true);
+        campoTextoPais.setEditable(true);
+        campoTextoSinopsis.setEditable(true);
+        campoTextoTitulo.setEditable(true);
+        campoTextoTrailer.setEditable(true);
+        
+        campoTextoClasificacion.setText("");
+        campoTextoDuracion.setText("");
+        campoTextoGenero.setText("");
+        campoTextoPais.setText("");
+        campoTextoSinopsis.setText("");
+        campoTextoTitulo.setText("");
+        campoTextoTrailer.setText("");
+        
+        btnGuardar.setVisible(true);
+    }//GEN-LAST:event_btnNuevoRegistroActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmModificarPelicula().setVisible(true);
-            }
-        });
-    }
+    private void btnHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHechoActionPerformed
+        // TODO add your handling code here:
+        
+        String titulo = campoTextoTitulo.getText();
+        String duracion = campoTextoDuracion.getText();
+        String genero = campoTextoGenero.getText();
+        String clasificacion = campoTextoClasificacion.getText();
+        String sinopsis = campoTextoSinopsis.getText();
+        String trailer = campoTextoTrailer.getText();
+        
+       pelicula.setClasificacionPelicula(1);
+        pelicula.setDuracion(Float.parseFloat(duracion));
+        pelicula.setPaisOrigen(1);
+        pelicula.setSinopsis(sinopsis);
+        pelicula.setTituloPelicula(titulo);
+        pelicula.setTrailer(trailer);
+        pelicula.setGeneroPelicula(1);
+        
+        
+        try {
+            peliculaNegocio.editarPelicula(pelicula);
+            JOptionPane.showMessageDialog(this, "Pelicula actualizada");
+            this.cargarPeliculasEnTabla();
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("ok");
+        }
+        
+    }//GEN-LAST:event_btnHechoActionPerformed
+
+    private void campoTextoTrailerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoTextoTrailerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoTextoTrailerActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnHecho;
+    private javax.swing.JButton btnNuevoRegistro;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JTextField campoTextoClasificacion;
     private javax.swing.JTextField campoTextoDuracion;
@@ -392,7 +636,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jblCinepolisLogo;
     private javax.swing.JLabel lblClasificacion;
     private javax.swing.JLabel lblDuracion;
@@ -402,5 +645,6 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
     private javax.swing.JLabel lblSinopsis;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTrailer;
+    private javax.swing.JTable tblPeliculas;
     // End of variables declaration//GEN-END:variables
 }

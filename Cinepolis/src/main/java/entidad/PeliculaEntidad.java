@@ -30,6 +30,11 @@ public class PeliculaEntidad {
         this.clasificacionPelicula = clasificacionPelicula;
     }
 
+    public PeliculaEntidad() {
+    }
+    
+    
+
     public int getIdPelicula() {
         return idPelicula;
     }

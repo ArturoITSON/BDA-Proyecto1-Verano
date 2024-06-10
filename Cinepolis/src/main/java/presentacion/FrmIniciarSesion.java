@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import negocio.IClienteNegocio;
+import negocio.IPeliculaNegocio;
 import negocio.NegocioException;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
@@ -30,6 +31,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     
     private ClienteEntidad cliente = new ClienteEntidad();
     private IClienteNegocio clienteNegocio;
+    private IPeliculaNegocio peliculaNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
     private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
     
@@ -41,10 +43,11 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     /**
      * Creates new form FrmIniciarSesion
      */
-    public FrmIniciarSesion(IClienteNegocio clienteNegocio) {
+    public FrmIniciarSesion(IClienteNegocio clienteNegocio, IPeliculaNegocio peliculaNegocio) {
         initComponents();
         
         this.clienteNegocio = clienteNegocio;
+        this.peliculaNegocio = peliculaNegocio;
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
@@ -229,8 +232,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             
             System.out.println("");
             
-            if (clienteBuscado.getIdCliente() == 5){ 
-            FrmPantallaAdmin admin = new FrmPantallaAdmin();
+            if (campoTextoCorreo.getText().equals("admin")){ 
+            FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
             admin.setVisible(true);
             System.out.println("ss");
             this.setVisible(false);

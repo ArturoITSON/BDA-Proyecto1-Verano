@@ -7,6 +7,8 @@ import dtos.PeliculaTablaDTO;
 import entidad.PeliculaEntidad;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistencia.IPeliculaDAO;
 import persistencia.PersistenciaException;
 
@@ -69,6 +71,27 @@ public class PeliculaNegocio implements IPeliculaNegocio {
             throw new NegocioException("Error al registrar la película: " + ex.getMessage());
         }
     }
+    
+    
+    @Override
+    public void registrarPelicula(PeliculaEntidad peli) throws NegocioException {
+
+        PeliculaEntidad nuevaPelicula = new PeliculaEntidad();
+        
+        nuevaPelicula.setClasificacionPelicula(peli.getClasificacionPelicula());
+        nuevaPelicula.setDuracion(peli.getDuracion());
+        nuevaPelicula.setGeneroPelicula(peli.getGeneroPelicula());
+        nuevaPelicula.setPaisOrigen(peli.getPaisOrigen());
+        nuevaPelicula.setSinopsis(peli.getSinopsis());
+        nuevaPelicula.setTituloPelicula(peli.getTituloPelicula());
+        nuevaPelicula.setTrailer(peli.getTrailer());
+        
+        try {
+            peliculaDAO.registrarPelicula(nuevaPelicula);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al registrar la película: " + ex.getMessage());
+        }
+    }    
 
     @Override
     public void editarPelicula(int idPelicula, String titulo, float duracion, String sinopsis, String trailer, int paisOrigen, int generoPelicula, int clasificacionPelicula) throws NegocioException {
@@ -97,4 +120,55 @@ public class PeliculaNegocio implements IPeliculaNegocio {
             throw new NegocioException("Error al eliminar la película: " + ex.getMessage());
         }
     }
+    
+    
+    @Override
+    public PeliculaEntidad buscarPelicula(PeliculaEntidad peli) throws NegocioException{
+    
+        PeliculaEntidad nuevaPeli = new PeliculaEntidad();
+        
+            
+        try {
+            nuevaPeli = peliculaDAO.buscarPelicula(peli);
+            
+            return nuevaPeli;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PeliculaNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+            return nuevaPeli;
+    }
+    
+    
+    @Override
+    public void editarPelicula(PeliculaEntidad peli) throws NegocioException{
+    
+        PeliculaEntidad pelicula = new PeliculaEntidad();
+
+        pelicula.setClasificacionPelicula(peli.getClasificacionPelicula());
+        pelicula.setDuracion(peli.getDuracion());
+        pelicula.setGeneroPelicula(peli.getGeneroPelicula());
+        pelicula.setIdPelicula(peli.getIdPelicula());
+        pelicula.setPaisOrigen(peli.getPaisOrigen());
+        pelicula.setSinopsis(peli.getSinopsis());
+        pelicula.setTituloPelicula(peli.getTituloPelicula());
+        pelicula.setTrailer(peli.getTrailer());
+        
+        
+        try {
+            peliculaDAO.editarPelicula(pelicula);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al editar la película: " + ex.getMessage());
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+
 }

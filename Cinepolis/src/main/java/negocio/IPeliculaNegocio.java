@@ -4,6 +4,7 @@
 package negocio;
 
 import dtos.PeliculaTablaDTO;
+import entidad.PeliculaEntidad;
 import java.util.List;
 
 /**
@@ -20,10 +21,17 @@ public interface IPeliculaNegocio {
             int generoPelicula, int clasificacionPelicula) 
             throws NegocioException;
     
+    public void registrarPelicula(PeliculaEntidad peli) throws NegocioException;
+    
     public void editarPelicula(int idPelicula, String titulo, float duracion, 
             String sinopsis, String trailer, int paisOrigen, 
             int generoPelicula, int clasificacionPelicula) 
             throws NegocioException;
     
     public void eliminarPelicula(int idPelicula) throws NegocioException;
+    
+    public PeliculaEntidad buscarPelicula(PeliculaEntidad peli) throws NegocioException;
+    
+    public void editarPelicula(PeliculaEntidad peli) throws NegocioException;
+
 }

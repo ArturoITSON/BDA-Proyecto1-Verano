@@ -7,6 +7,12 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.IPeliculaNegocio;
+import negocio.PeliculaNegocio;
+import persistencia.ConexionBD;
+import persistencia.IConexionBD;
+import persistencia.IPeliculaDAO;
+import persistencia.PeliculaDAO;
 
 /**
  *
@@ -17,16 +23,20 @@ import javax.swing.JLabel;
 public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     
+    
+    private IPeliculaNegocio PeliculaNegocio;
+    private IConexionBD conexionBD = new ConexionBD();
+    private IPeliculaDAO peliculaDAO = new PeliculaDAO(conexionBD);
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
     
     /**
      * Creates new form FrmPantallaAdmin
      */
-    public FrmPantallaAdmin() {
+    public FrmPantallaAdmin(IPeliculaNegocio peliculaNegocio) {
         initComponents();
         
-        
+        this.PeliculaNegocio = peliculaNegocio;
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
         
@@ -194,7 +204,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     private void btnModificarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPeliculaActionPerformed
         // TODO add your handling code here:
-        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula();
+        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula( PeliculaNegocio);
         
         modificarPelicula.setVisible(true);
         
@@ -230,40 +240,6 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnModificarCiudadActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPantallaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPantallaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPantallaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPantallaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmPantallaAdmin().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificarCiudad;

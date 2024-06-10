@@ -9,10 +9,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import negocio.ClienteNegocio;
 import negocio.IClienteNegocio;
+import negocio.IPeliculaNegocio;
+import negocio.PeliculaNegocio;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
 import persistencia.IClienteDAO;
 import persistencia.IConexionBD;
+import persistencia.IPeliculaDAO;
+import persistencia.PeliculaDAO;
 
 /**
  *
@@ -26,9 +30,12 @@ public class FrmInicio extends javax.swing.JFrame {
         // CAPA persistencia
         IConexionBD ConexionBD = new ConexionBD();
         IClienteDAO clienteDAO = new ClienteDAO(ConexionBD);
+        IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
         
         // CAPA negocio
         IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
+        IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        
 
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
@@ -163,7 +170,7 @@ public class FrmInicio extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion(clienteNegocio);
+        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion(clienteNegocio, peliculaNegocio);
         
         iniciarSesion.setVisible(true);
         this.setVisible(false);

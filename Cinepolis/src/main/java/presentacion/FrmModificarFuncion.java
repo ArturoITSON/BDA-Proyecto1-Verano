@@ -3,10 +3,16 @@
  */
 package presentacion;
 
+import entidad.PeliculaEntidad;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.IPeliculaNegocio;
+import persistencia.ConexionBD;
+import persistencia.IConexionBD;
+import persistencia.IPeliculaDAO;
+import persistencia.PeliculaDAO;
 
 /**
  *
@@ -16,6 +22,11 @@ import javax.swing.JLabel;
  */
 public class FrmModificarFuncion extends javax.swing.JFrame {
 
+        
+    private PeliculaEntidad pelicula = new PeliculaEntidad();
+    private IPeliculaNegocio peliculaNegocio;
+    private IConexionBD ConexionBD = new ConexionBD();
+    private IPeliculaDAO peliculaDao = new PeliculaDAO(ConexionBD);
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
@@ -367,7 +378,7 @@ public class FrmModificarFuncion extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin();
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
 
         admin.setVisible(true);
         this.dispose();
