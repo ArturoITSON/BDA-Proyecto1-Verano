@@ -47,7 +47,7 @@ public class SucursalEntidad {
         return salas;
     }
 
-    public void setSucursal(int salas) {
+    public void setSalas(int salas) {
         this.salas = salas;
     }
 

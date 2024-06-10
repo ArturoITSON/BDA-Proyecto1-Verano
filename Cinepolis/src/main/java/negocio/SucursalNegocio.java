@@ -7,8 +7,11 @@ import dtos.SucursalTablaDTO;
 import entidad.SucursalEntidad;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import persistencia.ISucursalDAO;
 import persistencia.PersistenciaException;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -61,6 +64,64 @@ public class SucursalNegocio implements ISucursalNegocio {
         }
         return sucursalDTO;
     }    
+    
+    @Override
+    public void registrarSucursal(SucursalEntidad sucursal) throws NegocioException{
+        
+        SucursalEntidad nuevaSucursal = new SucursalEntidad();
+        
+        nuevaSucursal.setCiudad(sucursal.getCiudad());
+        nuevaSucursal.setLatitud(sucursal.getLatitud());
+        nuevaSucursal.setLongitud(sucursal.getLongitud());
+        nuevaSucursal.setNombre(sucursal.getNombre());
+        nuevaSucursal.setSalas(sucursal.getSalas());
+        
+        try {
+            sucursalDAO.registrarSucursal(nuevaSucursal);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al registrar la sucursal: " + ex.getMessage());
+        }
+    
+    }
+    
+    
+    @Override
+    public SucursalEntidad buscarSucursal(SucursalEntidad sucursal) throws NegocioException{
+        
+            SucursalEntidad nuevaSucursal = new SucursalEntidad();
+        
+            
+        try {
+            nuevaSucursal = sucursalDAO.buscarSucursal(sucursal);
+            
+            return nuevaSucursal;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PeliculaNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+            return nuevaSucursal;
+        
+    
+    }
+
+    
+    
+   @Override 
+   public void eliminarSucursal(int idSucursal) throws NegocioException{
+       
+        if (idSucursal <= 0) {
+            throw new NegocioException("ID de Sucursal no válido.");
+        }
+
+        try {
+            sucursalDAO.eliminarSucursal(idSucursal);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al eliminar la sucursal: " + ex.getMessage());
+        }
+       
+       
+   } 
     
     
 }

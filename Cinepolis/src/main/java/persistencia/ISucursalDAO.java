@@ -16,5 +16,12 @@ public interface ISucursalDAO {
     
     
         public List<SucursalEntidad> buscarSucursalesTabla() throws PersistenciaException;
+        
+        public void registrarSucursal(SucursalEntidad sucursal) throws PersistenciaException;
+        
+        public SucursalEntidad buscarSucursal(SucursalEntidad sucursal) throws PersistenciaException;
+        
+        public void eliminarSucursal(int idSucursal) throws PersistenciaException;
+
 
 }

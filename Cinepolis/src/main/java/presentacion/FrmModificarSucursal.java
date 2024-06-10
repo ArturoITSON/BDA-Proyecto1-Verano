@@ -8,6 +8,8 @@ import entidad.PeliculaEntidad;
 import entidad.SucursalEntidad;
 import java.awt.Image;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -38,7 +40,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
     private ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
-    
+    static int id = 0;
     
     /**
      * Creates new form FrmModificarSucursal
@@ -63,6 +65,17 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
    private void cargarMetodosIniciales(){
         this.cargarConfiguracionInicialTablaSucursales();
         this.cargarSucursalesEnTabla();
+        
+        
+        campoTextoCiudad.setEditable(false);
+        campoTextoLatitud.setEditable(false);
+        campoTextoLongitud.setEditable(false);
+        campoTextoNombre.setEditable(false);
+        campoTextoSalas.setEditable(false);
+        
+        btnHecho.setVisible(false);
+        btnCancelar.setVisible(false);
+        btnEditar.setVisible(true);
         
     }
     
@@ -183,6 +196,9 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        btnNuevoRegistro = new javax.swing.JButton();
+        btnHecho = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Modificar Sucursal");
@@ -332,6 +348,34 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
             }
         });
 
+        btnNuevoRegistro.setBackground(new java.awt.Color(8, 148, 249));
+        btnNuevoRegistro.setText("Nuevo");
+        btnNuevoRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoRegistroActionPerformed(evt);
+            }
+        });
+
+        btnHecho.setBackground(new java.awt.Color(8, 148, 249));
+        btnHecho.setText("Hecho");
+        btnHecho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHecho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHechoActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setBackground(new java.awt.Color(8, 148, 249));
+        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -355,22 +399,29 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
                                 .addComponent(lblLatitud)
                                 .addComponent(campoTextoLatitud, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(campoTextoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lblCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(61, 61, 61)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(campoTextoSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblSalas))
-                                    .addGap(29, 29, 29))
+                                    .addGap(61, 61, 61))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(53, 53, 53)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblLongitud)
                                         .addComponent(campoTextoLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoTextoSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblSalas)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnNuevoRegistro)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnHecho))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(90, 90, 90)
+                                    .addComponent(btnCancelar)))
+                            .addGap(6, 6, 6)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnEditar)
                                 .addComponent(btnGuardar)
@@ -399,12 +450,15 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLatitud)
                     .addComponent(lblLongitud)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnNuevoRegistro)
+                    .addComponent(btnHecho))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoTextoLatitud, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoTextoLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnCancelar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -459,21 +513,151 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        
+       String texto = JOptionPane.showInputDialog("Ingrese el id de la sucursal");
+
+        id = Integer.parseInt(texto);
+        
+        
+        sucursal.setIdSucursal(id);
+        
+        
+        campoTextoCiudad.setEditable(true);
+        campoTextoLatitud.setEditable(true);
+        campoTextoLongitud.setEditable(true);
+        campoTextoNombre.setEditable(true);
+        campoTextoSalas.setEditable(true);
+        
+        btnHecho.setVisible(true);
+        btnEliminar.setVisible(true);
+        
+        try {
+            sucursal = sucursalNegocio.buscarSucursal(sucursal);
+
+            campoTextoCiudad.setText(Integer.toString(sucursal.getCiudad()));
+            campoTextoLatitud.setText(Float.toString(sucursal.getLatitud()));
+            campoTextoLongitud.setText(Float.toString(sucursal.getLongitud()));
+            campoTextoNombre.setText(sucursal.getNombre());
+            campoTextoSalas.setText(String.valueOf(sucursal.getSalas()));
+            
+            JOptionPane.showMessageDialog(this, "Sucursal Actualizada");
+ 
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        
+        String nombre = campoTextoNombre.getText();
+        int ciudad = Integer.parseInt(campoTextoCiudad.getText());
+        int sala = Integer.parseInt(campoTextoSalas.getText());
+        float latitud = Float.parseFloat(campoTextoLatitud.getText());
+        float longitud = Float.parseFloat(campoTextoLongitud.getText());
+
+        sucursal.setCiudad(ciudad);
+        sucursal.setLatitud(latitud);
+        sucursal.setLongitud(longitud);
+        sucursal.setNombre(nombre);
+        sucursal.setSalas(sala);
+
+        try {
+            sucursalNegocio.registrarSucursal(sucursal);
+            JOptionPane.showMessageDialog(this, "Sucursal agregada");
+            cargarMetodosIniciales();
+            
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarSucursal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+                
+        try {            
+            sucursalNegocio.eliminarSucursal(id);
+            
+            JOptionPane.showMessageDialog(this, "Sucursal Eliminada");
+            btnEliminar.setVisible(false);
+            this.cargarSucursalesEnTabla();
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnNuevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoRegistroActionPerformed
+        // TODO add your handling code here:
+        campoTextoCiudad.setEditable(true);
+        campoTextoLatitud.setEditable(true);
+        campoTextoLongitud.setEditable(true);
+        campoTextoNombre.setEditable(true);
+        campoTextoSalas.setEditable(true);
+
+        campoTextoCiudad.setText("");
+        campoTextoLatitud.setText("");
+        campoTextoLongitud.setText("");
+        campoTextoNombre.setText("");
+        campoTextoSalas.setText("");
+
+        btnGuardar.setVisible(true);
+        btnEditar.setVisible(false);
+        btnEliminar.setVisible(false);
+        
+        btnHecho.setVisible(false);
+    }//GEN-LAST:event_btnNuevoRegistroActionPerformed
+
+    private void btnHechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHechoActionPerformed
+        // TODO add your handling code here:
+
+        String nombre = campoTextoNombre.getText();
+        int ciudad = Integer.parseInt(campoTextoCiudad.getText());
+        int sala = Integer.parseInt(campoTextoSalas.getText());
+        float latitud = Float.parseFloat(campoTextoLatitud.getText());
+        float longitud = Float.parseFloat(campoTextoLongitud.getText());
+
+        sucursal.setCiudad(ciudad);
+        sucursal.setLatitud(latitud);
+        sucursal.setLongitud(longitud);
+        sucursal.setNombre(nombre);
+        sucursal.setSalas(sala);
+
+//        try {
+//            peliculaNegocio.editarPelicula(pelicula);
+//            JOptionPane.showMessageDialog(this, "Pelicula actualizada");
+//            this.cargarPeliculasEnTabla();
+//
+//        } catch (NegocioException ex) {
+//            Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println("ok");
+//        }
+
+    }//GEN-LAST:event_btnHechoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        
+        btnHecho.setVisible(false);
+        btnEditar.setVisible(true);
+        
+        
+        btnCancelar.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnHecho;
+    private javax.swing.JButton btnNuevoRegistro;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JTextField campoTextoCiudad;
     private javax.swing.JTextField campoTextoLatitud;
