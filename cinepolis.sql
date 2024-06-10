@@ -39,23 +39,26 @@ CREATE TABLE IF NOT EXISTS Peliculas (
     FOREIGN KEY (id_Clasificacion) REFERENCES Clasificaciones(idClasificacion)
 );
 
+
+CREATE TABLE IF NOT EXISTS Salas (
+    idSala INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    capacidadAsientos INT NOT NULL,
+    tiempoLimpieza TIME NOT NULL
+);
+
+
 CREATE TABLE IF NOT EXISTS Sucursales (
     idSucursal INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
     latitud DECIMAL(9,6),
     longitud DECIMAL(9,6),
     id_Ciudad INT NOT NULL,
-    FOREIGN KEY (id_Ciudad) REFERENCES Ciudades(ID)
+    id_Sala int,	
+    FOREIGN KEY (id_Ciudad) REFERENCES Ciudades(ID),
+    FOREIGN KEY (id_Sala) REFERENCES Salas(IdSala)	
 );
 
-CREATE TABLE IF NOT EXISTS Salas (
-    idSala INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    capacidadAsientos INT NOT NULL,
-    tiempoLimpieza TIME NOT NULL,
-    id_Sucursal INT NOT NULL,
-    FOREIGN KEY (id_Sucursal) REFERENCES Sucursales(idSucursal)
-);
 
 CREATE TABLE IF NOT EXISTS Funciones (
     idFuncion INT AUTO_INCREMENT PRIMARY KEY,
@@ -200,14 +203,13 @@ INSERT INTO `salas`
 (
 `nombre`,
 `capacidadAsientos`,
-`tiempoLimpieza`,
-`id_Sucursal`)
+`tiempoLimpieza`
+)
 VALUES
 (
 'sala 1',
 40,
-20,
-1);
+20);
 COMMIT;
 
 START TRANSACTION;
