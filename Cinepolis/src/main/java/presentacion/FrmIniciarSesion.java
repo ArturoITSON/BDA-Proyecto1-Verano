@@ -22,52 +22,49 @@ import persistencia.IConexionBD;
 
 /**
  *
- * @author/(s): Daniel Alejandro Castro Félix - 235294.
- *              René Ezequiel Figueroa López - 228691.
- *              Sergio Arturo García Ramírez - 233316.
+ * @author/(s): Daniel Alejandro Castro Félix - 235294. René Ezequiel Figueroa
+ * López - 228691. Sergio Arturo García Ramírez - 233316.
  */
 public class FrmIniciarSesion extends javax.swing.JFrame {
 
-    
     private ClienteEntidad cliente = new ClienteEntidad();
     private IClienteNegocio clienteNegocio;
     private IPeliculaNegocio peliculaNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
     private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
-    
+
     private FrmInicio inicio = new FrmInicio();
-    
+
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
-    
     /**
      * Creates new form FrmIniciarSesion
+     *
+     * @param clienteNegocio
+     * @param peliculaNegocio
      */
     public FrmIniciarSesion(IClienteNegocio clienteNegocio, IPeliculaNegocio peliculaNegocio) {
         initComponents();
-        
+
         this.clienteNegocio = clienteNegocio;
         this.peliculaNegocio = peliculaNegocio;
-        
+
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
     }
-    
-    
-    
-    private void setImagenLabel(JLabel nombreJlb, String ruta){
-    
+
+    private void setImagenLabel(JLabel nombreJlb, String ruta) {
+
         ImageIcon image = new ImageIcon(ruta);
-        
+
         Icon icon = new ImageIcon(
-       image.getImage().getScaledInstance(nombreJlb.getWidth(), nombreJlb.getHeight(), Image.SCALE_DEFAULT));
-        
+                image.getImage().getScaledInstance(nombreJlb.getWidth(), nombreJlb.getHeight(), Image.SCALE_DEFAULT));
+
         nombreJlb.setIcon(icon);
-        
+
         this.repaint();
-   
-    }    
-      
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,43 +208,34 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        
+
         String correo = campoTextoCorreo.getText();
         String contra = campoTextoContraseña.getText();
-        System.out.println(campoTextoCorreo.getText());
-        
-        
+
         ClienteEntidad clienteBuscado = new ClienteEntidad();
         clienteBuscado.setCorreoElectronico(correo);
         clienteBuscado.setContra(contra);
-        
+
         try {
-            cliente = clienteNegocio.buscarCliente(clienteBuscado);
-            
-            clienteBuscado.setApellidoMaterno(cliente.getApellidoMaterno());
-            clienteBuscado.setApellidoPaterno(cliente.getApellidoPaterno());
-            clienteBuscado.setFechaNacimiento(cliente.getFechaNacimiento());
-            clienteBuscado.setNombres(cliente.getNombres());
-            clienteBuscado.setIdCliente(cliente.getIdCliente());
-            
-            System.out.println("");
-            
-            if (campoTextoCorreo.getText().equals("admin")){ 
-            FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
-            admin.setVisible(true);
-            System.out.println("ss");
-            this.setVisible(false);
-             
-        }
-            
-            System.out.println(clienteBuscado.getIdCliente());
-            JOptionPane.showMessageDialog(this, cliente.getFechaNacimiento());
+            ClienteEntidad cliente = clienteNegocio.buscarCliente(clienteBuscado);
+
+            if (cliente != null) {
+                if (cliente.getIdCliente() == 1) {
+                    FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio);
+                    admin.setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso");
+                    // Mostrar la pantalla del usuario estándar
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos");
+            }
         } catch (NegocioException ex) {
             Logger.getLogger(FrmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ini");
+            JOptionPane.showMessageDialog(this, "Error al iniciar sesión: " + ex.getMessage());
         }
-        
-        
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

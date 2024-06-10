@@ -63,22 +63,24 @@
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="campoTextoApellidoPaterno" min="-2" pref="180" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="campoTextoApellidoMaterno" min="-2" pref="180" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <Component id="lblApellidoPaterno2" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   <Component id="lblApellidoMaterno" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="lblCiudad" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
-                                      <Component id="cbCiudades" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblCiudad" min="-2" pref="141" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="cbCiudades" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="campoTextoApellidoPaterno" min="-2" pref="180" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="campoTextoApellidoMaterno" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -125,11 +127,11 @@
                       <Component id="lblCiudad" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="campoTextoFecha" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="cbCiudades" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="campoTextoFecha" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="cbCiudades" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblContraseña" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="lblCorreo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -139,7 +141,7 @@
                       <Component id="campoTextoCorreo" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="campoTextoContraseña" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnRegistrarse" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="btnCancelar" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
@@ -321,6 +323,11 @@
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbCiudades">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

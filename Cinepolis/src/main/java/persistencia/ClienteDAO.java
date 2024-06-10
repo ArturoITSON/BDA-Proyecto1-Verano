@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author/(s): Daniel Alejandro Castro Félix - 235294.
- *              René Ezequiel Figueroa López - 228691.
- *              Sergio Arturo García Ramírez - 233316.
+ * @author/(s): Daniel Alejandro Castro Félix - 235294. René Ezequiel Figueroa
+ * López - 228691. Sergio Arturo García Ramírez - 233316.
  */
 public class ClienteDAO implements IClienteDAO {
 
@@ -67,6 +66,59 @@ public class ClienteDAO implements IClienteDAO {
         }
     }
 
+    /**
+     *
+     * @param correo
+     * @param contra
+     * @return
+     * @throws PersistenciaException
+     */
+    @Override
+    public ClienteEntidad buscarClientePorCorreoYContraseña(String correo, String contra) throws PersistenciaException {
+        Connection conexion = null;
+        PreparedStatement comandoSQL = null;
+        ResultSet resultado = null;
+
+        try {
+            conexion = this.conexionBD.crearConexion();
+            String codigoSQL = "SELECT idCliente, nombres, apellidoPaterno, apellidoMaterno, correoElectronico, fechaNacimiento FROM Clientes WHERE correoElectronico = ? AND contraseña = ?";
+            comandoSQL = conexion.prepareStatement(codigoSQL);
+            comandoSQL.setString(1, correo);
+            comandoSQL.setString(2, contra);
+            resultado = comandoSQL.executeQuery();
+
+            if (resultado.next()) {
+                ClienteEntidad cliente = new ClienteEntidad();
+                cliente.setIdCliente(resultado.getInt("idCliente"));
+                cliente.setCorreoElectronico(resultado.getString("correoElectronico"));
+                cliente.setNombres(resultado.getString("nombres"));
+                cliente.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                cliente.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                cliente.setFechaNacimiento(resultado.getDate("fechaNacimiento"));
+                return cliente;
+            } else {
+                return null; // Si no se encontró el cliente
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Ocurrió un error al leer la base de datos, inténtelo de nuevo.");
+        } finally {
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (comandoSQL != null) {
+                    comandoSQL.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
+            }
+        }
+    }
+
     private ClienteEntidad convertirAEntidad(ResultSet resultado) throws SQLException {
         int id = resultado.getInt("idCliente");
         String nombres = resultado.getString("nombres");
@@ -91,7 +143,7 @@ public class ClienteDAO implements IClienteDAO {
             conexion = conexionBD.crearConexion();
             conexion.setAutoCommit(false);
 
-            String sentenciaSql = "INSERT INTO Clientes (nombres, apellidoPaterno, apellidoMaterno, correoElectrónico, fechaNacimiento, ubicación, id_Ciudad, contraseña) VALUES (?, ?, ?, ?, ?, POINT(?, ?), ?, ?);";
+            String sentenciaSql = "INSERT INTO Clientes (nombres, apellidoPaterno, apellidoMaterno, correoElectronico, fechaNacimiento, ubicación, id_Ciudad, contraseña) VALUES (?, ?, ?, ?, ?, POINT(?, ?), ?, ?);";
             preparedStatement = conexion.prepareStatement(sentenciaSql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, cliente.getNombres());
@@ -201,95 +253,88 @@ public class ClienteDAO implements IClienteDAO {
             }
         }
     }
-    
-    
-    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws PersistenciaException{
-    
+
+    public ClienteEntidad buscarCliente(ClienteEntidad cliente) throws PersistenciaException {
+
         ClienteEntidad cliEnti = new ClienteEntidad();
-        
+
         cliEnti.setCorreoElectronico(cliente.getCorreoElectronico());
         cliEnti.setContra(cliente.getContra());
-        
-        try{
-        
-        // Establecer la conexion a la base de datos
-        Connection conexion = this.conexionBD.crearConexion();
-        
-        
-        // Sentencia SQL para seleccionar un alumno por su id
-        String sentenciaSql = "SELECT * FROM Clientes WHERE correoElectrónico =  (?) ";
-        
-        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
-        
-        comandoSQL.setString(1, cliEnti.getCorreoElectronico());
-        
-        ResultSet resultado = comandoSQL.executeQuery();
-        
-        resultado.next();
-            System.out.println("ss");
-        
-        ClienteEntidad ClienteConsultado = new ClienteEntidad(
-            resultado.getInt(1),
-            resultado.getString(2),
-            resultado.getString(3),
-            resultado.getString(4),
-            resultado.getString(5),
-            resultado.getDate(6),
-            resultado.getString(7),
-            resultado.getInt(8)
- 
-        );
-            
-             System.out.println("21");
-            return ClienteConsultado;
-            
-        }
 
-         catch(SQLException ex){
-             //Capturar y manejar cualquier excepcion SQL que ocurra
-             System.out.println("Ocurrio un errorS " + ex.getMessage());
-             System.out.println("aqui dao");
-         }
-
-         
-        return null;
-        
-    
-    }
-    
-    public List<String> obtenerCiudades() throws PersistenciaException {
-    List<String> ciudades = new ArrayList<>();
-    Connection conexion = null;
-    Statement comandoSQL = null;
-    ResultSet resultado = null;
-
-    try {
-        conexion = this.conexionBD.crearConexion();
-        String codigoSQL = "SELECT nombre FROM Ciudades";
-        comandoSQL = conexion.createStatement();
-        resultado = comandoSQL.executeQuery(codigoSQL);
-
-        while (resultado.next()) {
-            ciudades.add(resultado.getString("nombre"));
-        }
-        return ciudades;
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-        throw new PersistenciaException("Ocurrió un error al leer la base de datos de ciudades, inténtelo de nuevo.");
-    } finally {
         try {
-            if (resultado != null) {
-                resultado.close();
+
+            // Establecer la conexion a la base de datos
+            Connection conexion = this.conexionBD.crearConexion();
+
+            // Sentencia SQL para seleccionar un alumno por su id
+            String sentenciaSql = "SELECT * FROM Clientes WHERE correoElectrónico =  (?) ";
+
+            PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
+
+            comandoSQL.setString(1, cliEnti.getCorreoElectronico());
+
+            ResultSet resultado = comandoSQL.executeQuery();
+
+            resultado.next();
+            System.out.println("ss");
+
+            ClienteEntidad ClienteConsultado = new ClienteEntidad(
+                    resultado.getInt(1),
+                    resultado.getString(2),
+                    resultado.getString(3),
+                    resultado.getString(4),
+                    resultado.getString(5),
+                    resultado.getDate(6),
+                    resultado.getString(7),
+                    resultado.getInt(8)
+            );
+
+            System.out.println("21");
+            return ClienteConsultado;
+
+        } catch (SQLException ex) {
+            //Capturar y manejar cualquier excepcion SQL que ocurra
+            System.out.println("Ocurrio un errorS " + ex.getMessage());
+            System.out.println("aqui dao");
+        }
+
+        return null;
+
+    }
+
+    public List<String> obtenerCiudades() throws PersistenciaException {
+        List<String> ciudades = new ArrayList<>();
+        Connection conexion = null;
+        Statement comandoSQL = null;
+        ResultSet resultado = null;
+
+        try {
+            conexion = this.conexionBD.crearConexion();
+            String codigoSQL = "SELECT nombre FROM Ciudades";
+            comandoSQL = conexion.createStatement();
+            resultado = comandoSQL.executeQuery(codigoSQL);
+
+            while (resultado.next()) {
+                ciudades.add(resultado.getString("nombre"));
             }
-            if (comandoSQL != null) {
-                comandoSQL.close();
+            return ciudades;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Ocurrió un error al leer la base de datos de ciudades, inténtelo de nuevo.");
+        } finally {
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (comandoSQL != null) {
+                    comandoSQL.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
             }
-            if (conexion != null) {
-                conexion.close();
-            }
-        } catch (SQLException e) {
-            throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
         }
     }
-}
 }
