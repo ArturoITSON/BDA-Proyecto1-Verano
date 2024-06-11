@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import negocio.IClienteNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.NegocioException;
@@ -31,7 +32,8 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
 
     
     private ISucursalNegocio sucursalNegocio;    
-
+    private IFuncionNegocio funcionNegocio;
+    
     private ClienteEntidad cliente = new ClienteEntidad();
     private IClienteNegocio clienteNegocio;
     private IPeliculaNegocio peliculaNegocio;
@@ -46,12 +48,13 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
     /**
      * Creates new form FrmIniciarSesion
      */
-    public FrmIniciarSesion(IClienteNegocio clienteNegocio, IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio) {
+    public FrmIniciarSesion(IClienteNegocio clienteNegocio, IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio, IFuncionNegocio funcionNegocio) {
         initComponents();
         
         this.clienteNegocio = clienteNegocio;
         this.peliculaNegocio = peliculaNegocio;
         this.sucursalNegocio = sucursalNegocio;
+        this.funcionNegocio = funcionNegocio;
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
@@ -234,7 +237,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             System.out.println("");
             
             if (campoTextoCorreo.getText().equals("admin")){ 
-            FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
+            FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio, funcionNegocio);
             admin.setVisible(true);
             System.out.println("ss");
             this.setVisible(false);

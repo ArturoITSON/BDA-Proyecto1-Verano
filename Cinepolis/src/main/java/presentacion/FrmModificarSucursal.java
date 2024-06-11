@@ -4,7 +4,6 @@
 package presentacion;
 
 import dtos.SucursalTablaDTO;
-import entidad.PeliculaEntidad;
 import entidad.SucursalEntidad;
 import java.awt.Image;
 import java.util.List;
@@ -15,11 +14,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import negocio.FuncionNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.NegocioException;
+import negocio.PeliculaNegocio;
+import negocio.SucursalNegocio;
 import persistencia.ConexionBD;
+import persistencia.FuncionDAO;
 import persistencia.IConexionBD;
+import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
 import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
@@ -33,11 +38,18 @@ import persistencia.SucursalDAO;
  */
 public class FrmModificarSucursal extends javax.swing.JFrame {
 
-    private IPeliculaNegocio peliculaNegocio;
-    private SucursalEntidad sucursal = new SucursalEntidad();
-    private ISucursalNegocio sucursalNegocio;
-    private IConexionBD ConexionBD = new ConexionBD();
-    private ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        // CAPA persistencia
+        IConexionBD ConexionBD = new ConexionBD();
+        IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
+        ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
+        
+        // CAPA negocio
+        ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
+        IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
+        
+        SucursalEntidad sucursal = new SucursalEntidad();
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
     static int id = 0;
@@ -505,7 +517,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio, funcionNegocio);
 
         admin.setVisible(true);
         this.dispose();
@@ -540,7 +552,7 @@ public class FrmModificarSucursal extends javax.swing.JFrame {
             campoTextoNombre.setText(sucursal.getNombre());
             campoTextoSalas.setText(String.valueOf(sucursal.getSalas()));
             
-            JOptionPane.showMessageDialog(this, "Sucursal Actualizada");
+            JOptionPane.showMessageDialog(this, "Sucursal Encontrada");
  
         } catch (NegocioException ex) {
             Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);

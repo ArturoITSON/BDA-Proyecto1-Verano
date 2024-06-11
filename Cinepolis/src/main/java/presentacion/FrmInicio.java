@@ -8,15 +8,19 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import negocio.ClienteNegocio;
+import negocio.FuncionNegocio;
 import negocio.IClienteNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.PeliculaNegocio;
 import negocio.SucursalNegocio;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
+import persistencia.FuncionDAO;
 import persistencia.IClienteDAO;
 import persistencia.IConexionBD;
+import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
 import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
@@ -36,11 +40,13 @@ public class FrmInicio extends javax.swing.JFrame {
         IClienteDAO clienteDAO = new ClienteDAO(ConexionBD);
         IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
         ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
         
         // CAPA negocio
         ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
         IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
         IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
         
 
     
@@ -176,7 +182,7 @@ public class FrmInicio extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion(clienteNegocio, peliculaNegocio, sucursalNegocio);
+        FrmIniciarSesion iniciarSesion = new FrmIniciarSesion(clienteNegocio, peliculaNegocio, sucursalNegocio, funcionNegocio);
         
         iniciarSesion.setVisible(true);
         this.setVisible(false);

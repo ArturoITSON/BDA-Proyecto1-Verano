@@ -6,8 +6,6 @@ package presentacion;
 import dtos.PeliculaTablaDTO;
 import entidad.PeliculaEntidad;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,16 +14,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
+import negocio.FuncionNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.NegocioException;
+import negocio.PeliculaNegocio;
+import negocio.SucursalNegocio;
 import persistencia.ConexionBD;
+import persistencia.FuncionDAO;
 import persistencia.IConexionBD;
+import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
+import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
-import utilerias.JButtonCellEditor;
-import utilerias.JButtonRenderer;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -35,11 +38,18 @@ import utilerias.JButtonRenderer;
  */
 public class FrmModificarPelicula extends javax.swing.JFrame {
 
-    private ISucursalNegocio sucursalNegocio;
-    private PeliculaEntidad pelicula = new PeliculaEntidad();
-    private IPeliculaNegocio peliculaNegocio;
-    private IConexionBD ConexionBD = new ConexionBD();
-    private IPeliculaDAO peliculaDao = new PeliculaDAO(ConexionBD);
+        // CAPA persistencia
+        IConexionBD ConexionBD = new ConexionBD();
+        IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
+        ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
+        
+        // CAPA negocio
+        ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
+        IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
+        
+        PeliculaEntidad pelicula = new PeliculaEntidad();
     
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
@@ -48,11 +58,12 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
     /**
      * Creates new form FrmModificarPelicula
      */
-    public FrmModificarPelicula(IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio) {
+    public FrmModificarPelicula(IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio, IFuncionNegocio funcionNegocio) {
         initComponents();
         
         this.peliculaNegocio = peliculaNegocio;
         this.sucursalNegocio = sucursalNegocio;
+        this.funcionNegocio = funcionNegocio;
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
 
@@ -515,7 +526,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio, funcionNegocio);
         
         admin.setVisible(true);
         this.dispose();

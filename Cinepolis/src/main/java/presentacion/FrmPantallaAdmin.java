@@ -7,12 +7,16 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.FuncionNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.PeliculaNegocio;
 import negocio.SucursalNegocio;
 import persistencia.ConexionBD;
+import persistencia.FuncionDAO;
 import persistencia.IConexionBD;
+import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
 import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
@@ -26,16 +30,16 @@ import persistencia.SucursalDAO;
  */
 public class FrmPantallaAdmin extends javax.swing.JFrame {
 
-    
-    private ISucursalNegocio sucursalNegocio;
-    private IPeliculaNegocio PeliculaNegocio;
-    
-    
-    
-    private IConexionBD conexionBD = new ConexionBD();
-    private ISucursalDAO sucursalDAO = new SucursalDAO(conexionBD);
-    private IPeliculaDAO peliculaDAO = new PeliculaDAO(conexionBD);
-    
+        // CAPA persistencia
+        IConexionBD ConexionBD = new ConexionBD();
+        IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
+        ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
+        
+        // CAPA negocio
+        ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
+        IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
     
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
@@ -44,12 +48,15 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
     /**
      * Creates new form FrmPantallaAdmin
      */
-    public FrmPantallaAdmin(IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio) {
+    public FrmPantallaAdmin(IPeliculaNegocio peliculaNegocio, ISucursalNegocio sucursalNegocio, IFuncionNegocio funcionNegocio) {
         initComponents();
         
-        this.PeliculaNegocio = peliculaNegocio;
+        this.peliculaNegocio = peliculaNegocio;
         this.sucursalNegocio = sucursalNegocio;
+        this.funcionNegocio = funcionNegocio;
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
+        
+        btnModificarCiudad.setVisible(false);
 
         
     }
@@ -216,7 +223,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     private void btnModificarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPeliculaActionPerformed
         // TODO add your handling code here:
-        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula(PeliculaNegocio, sucursalNegocio);
+        FrmModificarPelicula modificarPelicula = new FrmModificarPelicula(peliculaNegocio, sucursalNegocio, funcionNegocio);
         
         modificarPelicula.setVisible(true);
         
@@ -225,7 +232,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
     private void btnModificarFuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFuncionActionPerformed
         // TODO add your handling code here:
-        FrmModificarFuncion modificarFuncion = new FrmModificarFuncion();
+        FrmModificarFuncion modificarFuncion = new FrmModificarFuncion(funcionNegocio);
         
         modificarFuncion.setVisible(true);
         
