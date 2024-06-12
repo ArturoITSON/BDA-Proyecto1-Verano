@@ -3,17 +3,24 @@
  */
 package presentacion;
 
-import entidad.PeliculaEntidad;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.FuncionNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
+import negocio.PeliculaNegocio;
+import negocio.SucursalNegocio;
 import persistencia.ConexionBD;
+import persistencia.FuncionDAO;
 import persistencia.IConexionBD;
+import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
+import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -23,11 +30,16 @@ import persistencia.PeliculaDAO;
  */
 public class FrmModificarFuncion extends javax.swing.JFrame {
 
-    private ISucursalNegocio sucursalNegocio;    
-    private PeliculaEntidad pelicula = new PeliculaEntidad();
-    private IPeliculaNegocio peliculaNegocio;
-    private IConexionBD ConexionBD = new ConexionBD();
-    private IPeliculaDAO peliculaDao = new PeliculaDAO(ConexionBD);
+        // CAPA persistencia
+        IConexionBD ConexionBD = new ConexionBD();
+        IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
+        ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
+        
+        // CAPA negocio
+        ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
+        IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
 
@@ -35,8 +47,10 @@ public class FrmModificarFuncion extends javax.swing.JFrame {
     /**
      * Creates new form FrmModificarFuncion
      */
-    public FrmModificarFuncion() {
+    public FrmModificarFuncion(IFuncionNegocio funcionNegocio) {
         initComponents();
+        
+        this.funcionNegocio = funcionNegocio;
         
         btnGuardar.setVisible(false);
         btnEliminar.setVisible(false);      
@@ -122,17 +136,17 @@ public class FrmModificarFuncion extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Pelicula", "Sala", "Precio", "Fecha", "Hora Inicio", "Hora Fin"
+                "Id Funcion", "Pelicula", "Sala", "Precio", "Fecha", "Hora Inicio", "Hora Fin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -379,7 +393,7 @@ public class FrmModificarFuncion extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio, funcionNegocio);
 
         admin.setVisible(true);
         this.dispose();
@@ -397,41 +411,7 @@ public class FrmModificarFuncion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarFuncion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarFuncion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarFuncion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmModificarFuncion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmModificarFuncion().setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;

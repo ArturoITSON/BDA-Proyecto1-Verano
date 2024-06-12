@@ -8,6 +8,7 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import persistencia.ConexionBD;
@@ -25,6 +26,7 @@ public class FrmModificarCiudad extends javax.swing.JFrame {
 
 
     private ISucursalNegocio sucursalNegocio;    
+    private IFuncionNegocio funcionNegocio;
     
     private PeliculaEntidad pelicula = new PeliculaEntidad();
     private IPeliculaNegocio peliculaNegocio;
@@ -319,7 +321,7 @@ public class FrmModificarCiudad extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio);
+        FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio, funcionNegocio);
 
         admin.setVisible(true);
         this.dispose();
