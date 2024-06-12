@@ -243,6 +243,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             this.setVisible(false);
              
         }
+            else{
             
             if(campoTextoCorreo.getText().equals(clienteBuscado.getCorreoElectronico()) && campoTextoContraseña.getText().equals(clienteBuscado.getContra())){
                 
@@ -256,8 +257,9 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             
             else{
                 JOptionPane.showMessageDialog(this, "Cliente no encontrado");
-            }
+                }
             
+            }
         } catch (NegocioException ex) {
             Logger.getLogger(FrmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ini");

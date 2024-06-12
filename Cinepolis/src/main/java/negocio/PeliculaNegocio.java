@@ -85,6 +85,7 @@ public class PeliculaNegocio implements IPeliculaNegocio {
         nuevaPelicula.setSinopsis(peli.getSinopsis());
         nuevaPelicula.setTituloPelicula(peli.getTituloPelicula());
         nuevaPelicula.setTrailer(peli.getTrailer());
+        nuevaPelicula.setLinkImagen(peli.getLinkImagen());
         
         try {
             peliculaDAO.registrarPelicula(nuevaPelicula);

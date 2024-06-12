@@ -425,8 +425,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(btnGuardar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnEliminar))
+                                                .addGap(79, 79, 79))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(lblDuracion)
                                                 .addGap(173, 173, 173))
@@ -459,8 +458,10 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(192, 192, 192)
-                                        .addComponent(btnHecho)))
+                                        .addGap(189, 189, 189)
+                                        .addComponent(btnHecho)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(btnEliminar)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -498,9 +499,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(campoTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnEliminar)))
+                        .addComponent(btnGuardar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(cbGenerosPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -512,11 +511,13 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnHecho)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnRegresar)
-                        .addGap(22, 22, 22))))
+                        .addGap(22, 22, 22))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHecho)
+                            .addComponent(btnEliminar))
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -601,6 +602,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         campoTextoSinopsis.setEditable(true);
         campoTextoTitulo.setEditable(true);
         campoTextoTrailer.setEditable(true);
+        campolinkImagen.setEditable(true);
 
         btnHecho.setVisible(true);
         btnEliminar.setVisible(true);
@@ -613,6 +615,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
             campoTextoSinopsis.setText(pelicula.getSinopsis());
             campoTextoTitulo.setText(pelicula.getTituloPelicula());
             campoTextoTrailer.setText(pelicula.getTrailer());
+            campolinkImagen.setText(pelicula.getLinkImagen());
 
         } catch (NegocioException ex) {
             Logger.getLogger(FrmModificarPelicula.class.getName()).log(Level.SEVERE, null, ex);
@@ -631,12 +634,14 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         campoTextoSinopsis.setEditable(true);
         campoTextoTitulo.setEditable(true);
         campoTextoTrailer.setEditable(true);
+        campolinkImagen.setEditable(true);
 
         campoTextoDuracion.setText("");
         campoTextoPais.setText("");
         campoTextoSinopsis.setText("");
         campoTextoTitulo.setText("");
         campoTextoTrailer.setText("");
+        campolinkImagen.setText("");
 
         btnGuardar.setVisible(true);
     }//GEN-LAST:event_btnNuevoRegistroActionPerformed
@@ -648,6 +653,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         String duracion = campoTextoDuracion.getText();
         String sinopsis = campoTextoSinopsis.getText();
         String trailer = campoTextoTrailer.getText();
+        String linkImagen = campolinkImagen.getText();
 
         pelicula.setClasificacionPelicula(1);
         pelicula.setDuracion(Float.parseFloat(duracion));
@@ -656,6 +662,7 @@ public class FrmModificarPelicula extends javax.swing.JFrame {
         pelicula.setTituloPelicula(titulo);
         pelicula.setTrailer(trailer);
         pelicula.setGeneroPelicula(1);
+        pelicula.setLinkImagen(linkImagen);
 
         try {
             peliculaNegocio.editarPelicula(pelicula);

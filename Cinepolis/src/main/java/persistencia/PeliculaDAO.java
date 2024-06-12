@@ -87,9 +87,9 @@ public class PeliculaDAO implements IPeliculaDAO {
         
         String link = pelicula.getLinkImagen(); 
 
-        if (link == null){
+        if (link.isBlank()){
             
-                    try {
+            try {
             conexion = conexionBD.crearConexion();
             conexion.setAutoCommit(false);
 
@@ -139,6 +139,7 @@ public class PeliculaDAO implements IPeliculaDAO {
         
         }
         
+        else{
         try {
             conexion = conexionBD.crearConexion();
             conexion.setAutoCommit(false);
@@ -187,6 +188,7 @@ public class PeliculaDAO implements IPeliculaDAO {
                 throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
             }
         }
+        }
     }
 
     @Override
@@ -194,6 +196,10 @@ public class PeliculaDAO implements IPeliculaDAO {
         Connection conexion = null;
         PreparedStatement preparedStatement = null;
 
+        String link = pelicula.getLinkImagen(); 
+
+        
+        if(link == null){
         try {
             conexion = conexionBD.crearConexion();
             String sentenciaSql = "UPDATE Peliculas SET titulo = ?, duración = ?, sinopsis = ?, trailer = ?, idPais = ?, idGenero = ?, id_Clasificacion = ? WHERE idPelicula = ?";
@@ -221,6 +227,39 @@ public class PeliculaDAO implements IPeliculaDAO {
             } catch (SQLException e) {
                 throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
             }
+        }
+        }
+        
+        else{
+            try {
+            conexion = conexionBD.crearConexion();
+            String sentenciaSql = "UPDATE Peliculas SET titulo = ?, duración = ?, sinopsis = ?, trailer = ?, idPais = ?, idGenero = ?, id_Clasificacion = ?, linkImagen = ? WHERE idPelicula = ?";
+            preparedStatement = conexion.prepareStatement(sentenciaSql);
+            preparedStatement.setString(1, pelicula.getTituloPelicula());
+            preparedStatement.setFloat(2, pelicula.getDuracion());
+            preparedStatement.setString(3, pelicula.getSinopsis());
+            preparedStatement.setString(4, pelicula.getTrailer());
+            preparedStatement.setInt(5, pelicula.getPaisOrigen());
+            preparedStatement.setInt(6, pelicula.getGeneroPelicula());
+            preparedStatement.setInt(7, pelicula.getClasificacionPelicula());
+            preparedStatement.setInt(8, pelicula.getIdPelicula());
+            preparedStatement.setString(9, pelicula.getLinkImagen());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new PersistenciaException("Error al editar la película: " + ex.getMessage());
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
+            }
+        }
         }
     }
 
@@ -267,6 +306,8 @@ public class PeliculaDAO implements IPeliculaDAO {
         
         
         // Sentencia SQL para seleccionar un alumno por su id
+        
+        
         String sentenciaSql = "SELECT * FROM Peliculas WHERE idPelicula =  (?) ";
         
         PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);

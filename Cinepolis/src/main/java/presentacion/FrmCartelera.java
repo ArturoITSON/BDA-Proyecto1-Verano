@@ -164,6 +164,10 @@ public class FrmCartelera extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoras = new javax.swing.JTable();
         lblImagenPeli = new javax.swing.JLabel();
+        campoTextoTitulo = new javax.swing.JTextField();
+        campoTextoDuracion = new javax.swing.JTextField();
+        campoTextoGenero = new javax.swing.JTextField();
+        campoTextoSinopsis = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cartelera");
@@ -228,6 +232,7 @@ public class FrmCartelera extends javax.swing.JFrame {
         lblGenero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblGenero.setText("Genero");
 
+        lblSinopsis.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblSinopsis.setText("Sinopsis");
 
         tblHoras.setModel(new javax.swing.table.DefaultTableModel(
@@ -238,12 +243,19 @@ public class FrmCartelera extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Horas"
+                "Funciones"
             }
         ));
         jScrollPane1.setViewportView(tblHoras);
 
-        lblImagenPeli.setText("jLabel1");
+        campoTextoTitulo.setEditable(false);
+
+        campoTextoDuracion.setEditable(false);
+
+        campoTextoGenero.setEditable(false);
+
+        campoTextoSinopsis.setEditable(false);
+        campoTextoSinopsis.setColumns(5);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -253,38 +265,54 @@ public class FrmCartelera extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(lblImagenPeli, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblSinopsis)
-                        .addContainerGap(366, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campoTextoSinopsis)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDuracion)
-                            .addComponent(lblGenero))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblDuracion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campoTextoGenero)
+                                    .addComponent(campoTextoTitulo)
+                                    .addComponent(campoTextoDuracion)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblSinopsis)
+                                            .addComponent(lblGenero)
+                                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 38, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(66, 66, 66))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblImagenPeli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addGap(29, 29, 29)
-                        .addComponent(lblDuracion)
-                        .addGap(27, 27, 27)
-                        .addComponent(lblGenero)
-                        .addGap(41, 41, 41)
-                        .addComponent(lblSinopsis))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblImagenPeli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addGap(152, 152, 152))))
-                .addGap(40, 40, 40))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblTitulo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoTextoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)
+                                .addComponent(lblDuracion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblGenero)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoTextoGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSinopsis)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoTextoSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -306,7 +334,7 @@ public class FrmCartelera extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(cbUbicacion)
+                .addComponent(cbUbicacion, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlbFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -344,13 +372,18 @@ public class FrmCartelera extends javax.swing.JFrame {
         PeliculaDAO peliDAO = new PeliculaDAO(new ConexionBD());
         FuncionDAO funcionDAO = new FuncionDAO(new ConexionBD());
         GeneroDAO generoDAO = new GeneroDAO(new ConexionBD());
+        
+                    System.out.println("1234");
+
         try {
-            lblTitulo.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getTituloPelicula());
-            lblSinopsis.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getSinopsis());
-            lblDuracion.setText(String.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getDuracion()));
-            lblGenero.setText(generoDAO.obtenerGeneroDePelicula(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getGeneroPelicula()));
+            campoTextoTitulo.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getTituloPelicula());
+            campoTextoSinopsis.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getSinopsis());
+            campoTextoDuracion.setText(String.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getDuracion()) + "  Horas");
+            campoTextoGenero.setText(generoDAO.obtenerGeneroDePelicula(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getGeneroPelicula()));
             
-            String direccion = peliDAO.buscarPeliculaTituloString(lblTitulo.getText());
+            
+            String direccion = peliDAO.buscarPeliculaTituloString(campoTextoTitulo.getText());
+            System.out.println(direccion + "1234");
             try {
                 setImagenPeli(lblImagenPeli,direccion);
             } catch (IOException ex) {
@@ -365,6 +398,10 @@ public class FrmCartelera extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField campoTextoDuracion;
+    private javax.swing.JTextField campoTextoGenero;
+    private javax.swing.JTextField campoTextoSinopsis;
+    private javax.swing.JTextField campoTextoTitulo;
     private javax.swing.JComboBox<String> cbPeliculas;
     private javax.swing.JComboBox<String> cbUbicacion;
     private javax.swing.JPanel jPanel1;
