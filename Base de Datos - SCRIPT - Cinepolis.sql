@@ -1,6 +1,6 @@
-create database bdclase280524;
+create database cinepolis;
 
-use bdclase280524;
+use cinepolis;
 
 CREATE TABLE IF NOT EXISTS Paises (
     idPais INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Generos (
 
 CREATE TABLE IF NOT EXISTS Clasificaciones (
     idClasificacion INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL
+    nombre VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Peliculas (
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS Peliculas (
     idPais INT NOT NULL,
     idGenero INT NOT NULL,
     id_Clasificacion INT NOT NULL,
+    linkImagen VARCHAR(250),
     FOREIGN KEY (idPais) REFERENCES Paises(idPais),
     FOREIGN KEY (idGenero) REFERENCES Generos(idGenero),
     FOREIGN KEY (id_Clasificacion) REFERENCES Clasificaciones(idClasificacion)
@@ -93,8 +94,10 @@ CREATE TABLE IF NOT EXISTS Clientes_Compra_Funciones (
     FOREIGN KEY (id_Cliente) REFERENCES Clientes(idCliente)
 );
 
-DROP TRIGGER despues_realizar_compra;
 DELIMITER //
+
+
+
 
 CREATE TRIGGER despues_realizar_compra
 AFTER INSERT ON clientes_compra_funciones
@@ -111,28 +114,16 @@ WHERE S.idSala = NEW.id_Funcion;
     
 DELIMITER ;
 
-START TRANSACTION;
-INSERT INTO clientes
+START TRANSACTION;	
+INSERT INTO `paises`
 (
-nombres,
-apellidoPaterno,
-apellidoMaterno,
-correoElectrónico,
-fechaNacimiento,
-ubicación,
-id_Ciudad)
+`Nombre_Pais`)
 VALUES(
-'pepe',
-'marcos',
-'2',
-'dasd@hotmail',
-curdate(),
-point(-109.935878,27.467347),
-'1');
+'mexico');
 COMMIT;
 
 START TRANSACTION;
-INSERT INTO `cinepolis`.`ciudades`(
+INSERT INTO `ciudades`(
 `nombre`,
 `cantidadHabitantes`,
 `id_País`)
@@ -142,30 +133,33 @@ VALUES(
 1);
 COMMIT;
 
-START TRANSACTION;	
-INSERT INTO `cinepolis`.`paises`
-(
-`Nombre_Pais`)
-VALUES(
-'mexico');
+
+START TRANSACTION;
+
+INSERT INTO Generos (nombre) VALUES ('Acción');
+INSERT INTO Generos (nombre) VALUES ('Comedia');
+INSERT INTO Generos (nombre) VALUES ('Drama');
+INSERT INTO Generos (nombre) VALUES ('Ciencia ficción');
+INSERT INTO Generos (nombre) VALUES ('Romance');
+INSERT INTO Generos (nombre) VALUES ('Aventura');
+INSERT INTO Generos (nombre) VALUES ('Terror');
+INSERT INTO Generos (nombre) VALUES ('Fantasía');
+INSERT INTO Generos (nombre) VALUES ('Animación');
+INSERT INTO Generos (nombre) VALUES ('Documental');
+
 COMMIT;
 
 START TRANSACTION;
-INSERT INTO `cinepolis`.`generos`
-(`nombre`)
-VALUES
-('accion');
+
+INSERT INTO Clasificaciones (nombre) VALUES ('Apta para todo público (A)');
+INSERT INTO Clasificaciones (nombre) VALUES ('Adolescentes de doce años en adelante (B)');
+INSERT INTO Clasificaciones (nombre) VALUES ('Adultos de dieciocho años en adelante (C)');
+INSERT INTO Clasificaciones (nombre) VALUES ('Con sexo explícito, lenguaje soéz, o alto grado de violencia (D)');
+
 COMMIT;
 
 START TRANSACTION;
-INSERT INTO `cinepolis`.`clasificaciones`
-(`nombre`)
-VALUES
-('b13');
-COMMIT;
-
-START TRANSACTION;
-INSERT INTO `cinepolis`.`peliculas`
+INSERT INTO `peliculas`
 (
 `titulo`,
 `duración`,
@@ -173,7 +167,8 @@ INSERT INTO `cinepolis`.`peliculas`
 `trailer`,
 `idPais`,
 `idGenero`,
-`id_Clasificacion`)
+`id_Clasificacion`,
+`linkImagen`)
 VALUES
 (
 'men in black',
@@ -182,11 +177,12 @@ VALUES
 'asd',
 1,
 1,
-1);
+1,
+'https://www.tvguide.com/a/img/catalog/provider/1/2/1-172367896.jpg');
 COMMIT;
 
 START TRANSACTION;
-INSERT INTO `cinepolis`.`sucursales`
+INSERT INTO `sucursales`
 (
 `nombre`,
 `latitud`,
@@ -194,13 +190,13 @@ INSERT INTO `cinepolis`.`sucursales`
 `id_Ciudad`)
 VALUES
 (
-'bellaBista',
+'Bellavista',
 27.484710,
 -109.959283,
 1);
 COMMIT;
 
-INSERT INTO `cinepolis`.`sucursales`
+INSERT INTO `sucursales`
 (
 `nombre`,
 `latitud`,
@@ -208,7 +204,7 @@ INSERT INTO `cinepolis`.`sucursales`
 `id_Ciudad`)
 VALUES
 (
-'sendero',
+'Sendero',
 27.468485,
 -109.912546,
 1);
@@ -216,7 +212,7 @@ COMMIT;
 
 Select * from sucursales;
 START TRANSACTION;
-INSERT INTO `cinepolis`.`salas`
+INSERT INTO `salas`
 (
 `nombre`,
 `capacidadAsientos`,
@@ -229,28 +225,9 @@ VALUES
 20,
 1);
 COMMIT;
-SELECT * FROM salas;
 
 START TRANSACTION;
-INSERT INTO `cinepolis`.`clientes_compra_funciones`
-(
-`fechaCompra`,
-`cantidadAsientos`,
-`costo`,
-`id_Funcion`,
-`id_Cliente`)
-VALUES
-(
-curdate(),
-13,
-10,
-1,
-2);
-COMMIT;
-SELECT * FROM clientes;
-
-START TRANSACTION;
-INSERT INTO `cinepolis`.`funciones`
+INSERT INTO `funciones`
 (
 `horaInicio`,
 `horaAcaba`,
@@ -267,7 +244,28 @@ current_time(),
 1,
 1);
 COMMIT;
-SELECT * FROM salas;
+
+START TRANSACTION;
+INSERT INTO clientes
+(
+nombres,
+apellidoPaterno,
+apellidoMaterno,
+correoElectrónico,
+fechaNacimiento,
+ubicación,
+id_Ciudad,
+contraseña)
+VALUES(
+'admin',
+'admin',
+'admin',
+'admin',
+curdate(),
+point(-109.935878,27.467347),
+'1',
+'admin');
+COMMIT;
 
 START TRANSACTION;
 INSERT INTO clientes
@@ -358,10 +356,25 @@ WHERE `idCliente` =5;
 
 COMMIT;
 
-SELECT * FROM clientes;
+START TRANSACTION;
+INSERT INTO `clientes_compra_funciones`
+(
+`fechaCompra`,
+`cantidadAsientos`,
+`costo`,
+`id_Funcion`,
+`id_Cliente`)
+VALUES
+(
+curdate(),
+13,
+10,
+1,
+2);
+COMMIT;
 
 START TRANSACTION;
-INSERT INTO `cinepolis`.`clientes_compra_funciones`
+INSERT INTO `clientes_compra_funciones`
 (
 `fechaCompra`,
 `cantidadAsientos`,
@@ -377,11 +390,36 @@ curdate(),
 3);
 COMMIT;
 
-SELECT * FROM clientes_compra_funciones;
 
-SELECT * FROM salas;
+insert into Paises(Nombre_Pais)
+values("Mexico");
 
-DROP PROCEDURE buscarAlumnosTabla;
+select * from Paises;
+
+Insert into Ciudades(nombre, cantidadHabitantes, id_País)
+values("Obregon", 100, 1);
+
+
+START TRANSACTION;
+INSERT INTO clientes
+(
+nombres,
+apellidoPaterno,
+apellidoMaterno,
+correoElectrónico,
+fechaNacimiento,
+ubicación,
+id_Ciudad)
+VALUES(
+'pepe',
+'marcos',
+'2',
+'dasd@hotmail',
+curdate(),
+point(-109.935878,27.467347),
+'1');
+COMMIT;
+
 DELIMITER //
 
 CREATE PROCEDURE buscarSucursalesTabla(
@@ -400,19 +438,24 @@ DELIMITER ;
 
 CALL buscarSucursalesTabla(point(-109.788108, 27.369454));
 
-select ST_Distance_Sphere;
+UPDATE `cinepolis`.`ciudades` SET `nombre` = 'Obregón', `cantidadHabitantes` = '329404' WHERE (`ID` = '1');
+UPDATE `cinepolis`.`ciudades` SET `nombre` = 'Navojoa', `cantidadHabitantes` = '126977' WHERE (`ID` = '2');
+INSERT INTO `cinepolis`.`ciudades` (`ID`, `nombre`, `cantidadHabitantes`, `id_País`) VALUES ('3', 'Hermosillo', '812229', '1');
+INSERT INTO `cinepolis`.`ciudades` (`ID`, `nombre`, `cantidadHabitantes`, `id_País`) VALUES ('4', 'Culiacán', '1003530', '1');
+INSERT INTO `cinepolis`.`ciudades` (`ID`, `nombre`, `cantidadHabitantes`, `id_País`) VALUES ('5', 'Mazatlán', '485000', '1');
 
-SELECT * FROM clientes_compra_funciones;
+DELETE FROM `cinepolis`.`paises` WHERE (`idPais` = '2');
+UPDATE `cinepolis`.`paises` SET `Nombre_Pais` = 'México' WHERE (`idPais` = '1');
+
+INSERT INTO `cinepolis`.`salas` (`idSala`, `nombre`, `capacidadAsientos`, `tiempoLimpieza`, `id_Sucursal`) VALUES ('2', 'Tradicional', '90', '00:07:00', '1');
+INSERT INTO `cinepolis`.`salas` (`idSala`, `nombre`, `capacidadAsientos`, `tiempoLimpieza`, `id_Sucursal`) VALUES ('3', 'Premium', '65', '00:03:30', '1');
+INSERT INTO `cinepolis`.`salas` (`idSala`, `nombre`, `capacidadAsientos`, `tiempoLimpieza`, `id_Sucursal`) VALUES ('4', 'VIP', '50', '00:03:00', '1');
+UPDATE `cinepolis`.`salas` SET `nombre` = 'Kids', `capacidadAsientos` = '80', `tiempoLimpieza` = '00:05:00' WHERE (`idSala` = '1');
+INSERT INTO `cinepolis`.`salas` (`idSala`, `nombre`, `capacidadAsientos`, `tiempoLimpieza`, `id_Sucursal`) VALUES ('5', 'ITSON', '100', '00:10:00', '1');
 
 
-select * from Ciudades;
-
-insert into Paises(Nombre_Pais)
-values("Mexico");
-
-select * from Paises;
-
-Insert into Ciudades(nombre, cantidadHabitantes, id_País)
-values("Obregon", 100, 1);
-
+Select * from Sucursales;
+Select * from Ciudades;
+select * from paises;
+select * from Peliculas;
 select * from Clientes;
