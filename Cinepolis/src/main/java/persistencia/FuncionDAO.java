@@ -203,4 +203,30 @@ public class FuncionDAO implements IFuncionDAO {
         }
 
     }
+    
+    @Override
+    public FuncionEntidad buscarFuncionPorPeliculaYHora(int id, String hora) throws PersistenciaException {
+        PreparedStatement preparedStatement = null;
+        try {
+            FuncionEntidad funcion = null;
+            Connection conexion = this.conexionBD.crearConexion();
+            String codigoSQL = "SELECT idFuncion, horaInicio, horaAcaba, dia, precio, idSala, id_Pelicula FROM funciones WHERE id_pelicula = ? and horaInicio= time(?);";
+            preparedStatement = conexion.prepareStatement(codigoSQL);
+            preparedStatement.setInt(1,id);
+            preparedStatement.setString(2,hora);
+            System.out.println("a");
+            ResultSet resultado = preparedStatement.executeQuery();
+            System.out.println("b");
+            while (resultado.next()) {
+                funcion = this.convertirAEntidad(resultado);
+            }
+            System.out.println("c");
+            conexion.close();
+            return funcion;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Ocurrió un error al leer la base de datos, inténtelo de nuevo.");
+        }
+
+    }
 }

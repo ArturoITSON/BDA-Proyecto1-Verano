@@ -17,4 +17,5 @@ public interface IFuncionDAO {
     public void registrarFuncion(FuncionEntidad funcion) throws PersistenciaException;
     public void editarFuncion(FuncionEntidad funcion) throws PersistenciaException;
     public void eliminarFuncion(int idFuncion) throws PersistenciaException;
+    public FuncionEntidad buscarFuncionPorPeliculaYHora(int id, String hora) throws PersistenciaException;
 }

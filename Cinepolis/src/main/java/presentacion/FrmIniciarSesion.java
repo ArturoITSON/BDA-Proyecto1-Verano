@@ -239,7 +239,6 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             if (campoTextoCorreo.getText().equals("admin")){ 
             FrmPantallaAdmin admin = new FrmPantallaAdmin(peliculaNegocio, sucursalNegocio, funcionNegocio);
             admin.setVisible(true);
-            System.out.println("ss");
             this.setVisible(false);
              
         }
@@ -248,7 +247,7 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
             if(campoTextoCorreo.getText().equals(clienteBuscado.getCorreoElectronico()) && campoTextoContraseña.getText().equals(clienteBuscado.getContra())){
                 
             System.out.println(clienteBuscado.getIdCliente());
-            FrmCartelera cartelera = new FrmCartelera();
+            FrmCartelera cartelera = new FrmCartelera(clienteBuscado.getIdCliente());
                     
             cartelera.setVisible(true);
             
