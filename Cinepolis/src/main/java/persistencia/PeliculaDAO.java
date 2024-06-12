@@ -254,6 +254,7 @@ public class PeliculaDAO implements IPeliculaDAO {
     
     
     
+    @Override
     public PeliculaEntidad buscarPelicula(PeliculaEntidad peli) throws PersistenciaException{
     
         PeliculaEntidad nuevaPeli = new PeliculaEntidad();
@@ -296,6 +297,7 @@ public class PeliculaDAO implements IPeliculaDAO {
         
     }
 
+    @Override
     public PeliculaEntidad buscarPeliculaTitulo(String titulo) throws PersistenciaException{
     
         PeliculaEntidad nuevaPeli = new PeliculaEntidad();
@@ -330,7 +332,6 @@ public class PeliculaDAO implements IPeliculaDAO {
  
         );
             
-             System.out.println("21");
             return peliConsultada;
             
         }
@@ -383,7 +384,6 @@ public class PeliculaDAO implements IPeliculaDAO {
  
         );
             
-             System.out.println("21");
             return peliConsultada.getLinkImagen();
             
         }

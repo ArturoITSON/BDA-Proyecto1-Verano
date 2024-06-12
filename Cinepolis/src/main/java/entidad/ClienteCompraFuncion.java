@@ -26,6 +26,15 @@ public class ClienteCompraFuncion {
         this.idClienteCompra = idClienteCompra;
     }
 
+    public ClienteCompraFuncion(int asientosComprados, float costo, int idFuncionCompra, int idClienteCompra) {
+        this.asientosComprados = asientosComprados;
+        this.costo = costo;
+        this.idFuncionCompra = idFuncionCompra;
+        this.idClienteCompra = idClienteCompra;
+    }
+    
+    
+
     public int getIdClienteCompraFuncion() {
         return idClienteCompraFuncion;
     }

@@ -44,7 +44,7 @@ import persistencia.PersistenciaException;
  * López - 228691. Sergio Arturo García Ramírez - 233316.
  */
 public class FrmCartelera extends javax.swing.JFrame {
-
+    int idCliente;
     private ClienteEntidad cliente = new ClienteEntidad();
     private IClienteNegocio clienteNegocio;
     private IConexionBD ConexionBD = new ConexionBD();
@@ -58,11 +58,11 @@ public class FrmCartelera extends javax.swing.JFrame {
     /**
      * Creates new form FrmCartelera
      */
-    public FrmCartelera() {
+    public FrmCartelera(int idCliente) {
         initComponents();
         cargarUbicaciones();
         cargarPeliculas();
-        
+        this.idCliente = idCliente;
         
         
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
@@ -127,6 +127,19 @@ public class FrmCartelera extends javax.swing.JFrame {
         }
     }
     
+    private String getHoraSeleccionada() {
+        int indiceFilaSeleccionada = this.tblHoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblHoras.getModel();
+            int indiceColumnaId = 0;
+            String horaFuncion = modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId).toString();
+            return horaFuncion;
+        } else {
+            return null;
+        }
+    }
+    
     private void llenarTablaFunciones(List<FuncionEntidad> funcion) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblHoras.getModel();
 
@@ -164,6 +177,7 @@ public class FrmCartelera extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoras = new javax.swing.JTable();
         lblImagenPeli = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cartelera");
@@ -245,6 +259,13 @@ public class FrmCartelera extends javax.swing.JFrame {
 
         lblImagenPeli.setText("jLabel1");
 
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -252,25 +273,31 @@ public class FrmCartelera extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(lblImagenPeli, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblSinopsis)
-                        .addContainerGap(366, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDuracion)
-                            .addComponent(lblGenero))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblSinopsis)
+                                .addContainerGap(366, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDuracion)
+                                    .addComponent(lblGenero))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAceptar)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblTitulo)
                         .addGap(29, 29, 29)
@@ -278,12 +305,13 @@ public class FrmCartelera extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(lblGenero)
                         .addGap(41, 41, 41)
-                        .addComponent(lblSinopsis))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblImagenPeli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
-                            .addGap(152, 152, 152))))
+                        .addComponent(lblSinopsis)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAceptar))
+                    .addComponent(lblImagenPeli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .addGap(152, 152, 152)))
                 .addGap(40, 40, 40))
         );
 
@@ -363,8 +391,16 @@ public class FrmCartelera extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbPeliculasActionPerformed
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        // TODO add your handling code here:
+        FrmCompraPelicula frmCompra = new FrmCompraPelicula(lblTitulo.getText(),lblDuracion.getText(),lblGenero.getText(),getHoraSeleccionada(), this.idCliente);
+        frmCompra.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JComboBox<String> cbPeliculas;
     private javax.swing.JComboBox<String> cbUbicacion;
     private javax.swing.JPanel jPanel1;
