@@ -292,6 +292,41 @@ public class ClienteDAO implements IClienteDAO {
         }
     }
 }
+    
+    public List<String> obtenerSucursales(float longitud, float latitud) throws PersistenciaException {
+    List<String> ciudades = new ArrayList<>();
+    Connection conexion = null;
+    ResultSet resultado = null;
+    try {
+        conexion = this.conexionBD.crearConexion();
+        String codigoSQL = "CALL buscarSucursalesTabla(point(?,?));";
+        
+        PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL);
+        comandoSQL.setFloat(1, longitud);
+        comandoSQL.setFloat(2, latitud);
+        
+        resultado = comandoSQL.executeQuery();
+        
+        while (resultado.next()) {
+            ciudades.add(resultado.getString("nombre"));
+        }
+        return ciudades;
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+        throw new PersistenciaException("Ocurrió un error al leer la base de datos de ciudades, inténtelo de nuevo.");
+    } finally {
+        try {
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
+        }
+    }
+}
 
 //    @Override
 //    public ClienteEntidad buscarClientePorCorreoYContraseña(String correoElectronico, String contra) throws PersistenciaException {
