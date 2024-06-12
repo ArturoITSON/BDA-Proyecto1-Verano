@@ -1,1 +1,8 @@
+Consideraciones del proyecto:
 
+1. Para ejecutar el proyecto se debe accerder a source packages/presentacion y ejecutar el frmInicio.Java
+
+2. Hay unas pantallas de administrador que estan ocultas y que permiten agregar una pelicula desde el mismo programa
+  Para accerder a ellas es necesario hacer lo siguiente:
+    en correo poner: admin
+    en contraseña poner admin:
