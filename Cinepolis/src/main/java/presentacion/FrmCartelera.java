@@ -9,6 +9,7 @@ import entidad.ClienteEntidad;
 import entidad.FuncionEntidad;
 import entidad.PeliculaEntidad;
 import java.awt.Image;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -308,11 +309,11 @@ public class FrmCartelera extends javax.swing.JFrame {
             lblTitulo.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getTituloPelicula());
             lblSinopsis.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getSinopsis());
             lblDuracion.setText(String.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getDuracion()));
-            lblGenero.setText(generoDAO.obtenerGeneroDePelicula(Integer.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getGeneroPelicula())));
+            lblGenero.setText(generoDAO.obtenerGeneroDePelicula(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getGeneroPelicula()));
             
             
-            llenarTablaFunciones(funcionDAO.buscarFuncionesPorPelicula(Integer.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getIdPelicula())));
-        } catch (PersistenciaException ex) {
+            llenarTablaFunciones(funcionDAO.buscarFuncionesPorPelicula(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getIdPelicula()));
+        } catch (PersistenciaException | SQLException ex) {
             Logger.getLogger(FrmCartelera.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cbPeliculasActionPerformed

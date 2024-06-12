@@ -6,6 +6,7 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +38,26 @@ public class GeneroDAO implements IGeneroDAO {
         }
 
         return generos;
+    }
+    
+    public String obtenerGeneroDePelicula(int id_pelicula) throws PersistenciaException, SQLException {
+        String genero= null;
+        Connection conexion = null;
+        try {
+            conexion = this.conexionBD.crearConexion();
+            String codigoSQL = "SELECT idGenero, nombre FROM generos where idGenero = ?;";
+            
+            PreparedStatement comandoSQL = conexion.prepareStatement(codigoSQL);
+            comandoSQL.setInt(1, id_pelicula);
+            
+            ResultSet resultado = comandoSQL.executeQuery();
+            while (resultado.next()) {
+            genero = resultado.getString("nombre");
+        }
+            return genero;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            throw new PersistenciaException("Ocurrió un error al leer la base de datos de generos, inténtelo de nuevo.");
+        } 
     }
 }
