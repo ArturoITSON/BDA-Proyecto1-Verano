@@ -309,6 +309,8 @@ public class FrmCartelera extends javax.swing.JFrame {
             lblSinopsis.setText(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getSinopsis());
             lblDuracion.setText(String.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getDuracion()));
             lblGenero.setText(generoDAO.obtenerGeneroDePelicula(Integer.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getGeneroPelicula())));
+            
+            
             llenarTablaFunciones(funcionDAO.buscarFuncionesPorPelicula(Integer.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getIdPelicula())));
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmCartelera.class.getName()).log(Level.SEVERE, null, ex);
