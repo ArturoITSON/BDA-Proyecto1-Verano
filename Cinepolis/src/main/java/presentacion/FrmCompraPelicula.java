@@ -6,6 +6,7 @@ package presentacion;
 import entidad.ClienteCompraFuncion;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import negocio.FuncionNegocio;
 import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
@@ -226,18 +227,34 @@ public class FrmCompraPelicula extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             int idPeli = peliculaDAO.buscarPeliculaTitulo(txtTitulo.getText()).getIdPelicula();
+            System.out.println(idPeli + "-- " + this.horaInicio);
             float costo = funcionDAO.buscarFuncionPorPeliculaYHora(idPeli, this.horaInicio).getPrecio();
             int idFuncion = funcionDAO.buscarFuncionPorPeliculaYHora(idPeli, this.horaInicio).getIdFuncion();
             
             IClienteCompraFuncionDAO compra = new ClienteCompraFuncionDAO(this.ConexionBD);
             
             compra.clienteCompra(new ClienteCompraFuncion(this.cantBoletos, (float)(costo*this.cantBoletos),idFuncion, this.idCliente));
+            
+            if(costo*this.cantBoletos != 0.0){
+            JOptionPane.showMessageDialog(this, "compra realizada con un costo de " + costo*this.cantBoletos);
+            FrmCartelera car = new FrmCartelera(idCliente);
+            car.setVisible(true);
+            this.dispose();
+            
+            }
+            
+            else{
+                JOptionPane.showMessageDialog(this, "compra cancelada");
+                FrmCartelera car = new FrmCartelera(idCliente);
+                car.setVisible(true);
+                this.dispose();
+            }
         } catch (PersistenciaException ex) {
             Logger.getLogger(FrmCompraPelicula.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.setVisible(false);
         
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
 

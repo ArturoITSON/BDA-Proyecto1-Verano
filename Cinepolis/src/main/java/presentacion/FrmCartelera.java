@@ -24,19 +24,27 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import negocio.ClienteNegocio;
+import negocio.FuncionNegocio;
 import negocio.IClienteNegocio;
+import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
+import negocio.ISucursalNegocio;
 import negocio.NegocioException;
 import negocio.PeliculaNegocio;
+import negocio.SucursalNegocio;
 import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
 import persistencia.FuncionDAO;
 import persistencia.GeneroDAO;
 import persistencia.IClienteDAO;
 import persistencia.IConexionBD;
+import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
+import persistencia.ISucursalDAO;
 import persistencia.PeliculaDAO;
 import persistencia.PersistenciaException;
+import persistencia.SucursalDAO;
 
 /**
  *
@@ -45,23 +53,34 @@ import persistencia.PersistenciaException;
  */
 public class FrmCartelera extends javax.swing.JFrame {
 
-    private ClienteEntidad cliente = new ClienteEntidad();
-    private IClienteNegocio clienteNegocio;
-    private IConexionBD ConexionBD = new ConexionBD();
-    private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
+        // CAPA persistencia
+        IConexionBD ConexionBD = new ConexionBD();
+        IClienteDAO clienteDAO = new ClienteDAO(ConexionBD);
+        IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
+        ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
+        IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
+        
+        // CAPA negocio
+        ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
+        IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
+        IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
+        IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
 
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
     private String rutaImagen;
     GregorianCalendar date = new GregorianCalendar();
 
-        
+    
+    private int idCliente;
     /**
      * Creates new form FrmCartelera
      */
-    public FrmCartelera() {
+    public FrmCartelera(int idCliente) {
         initComponents();
         cargarUbicaciones();
         cargarPeliculas();
+        this.idCliente = idCliente;
+
         
         
         
@@ -127,6 +146,20 @@ public class FrmCartelera extends javax.swing.JFrame {
         }
     }
     
+        private String getHoraSeleccionada() {
+        int indiceFilaSeleccionada = this.tblHoras.getSelectedRow();
+        if (indiceFilaSeleccionada != -1) {
+            DefaultTableModel modelo = (DefaultTableModel) this.tblHoras.getModel();
+            int indiceColumnaId = 0;
+            String horaFuncion = modelo.getValueAt(indiceFilaSeleccionada,
+                    indiceColumnaId).toString();
+            return horaFuncion;
+        } else {
+            return null;
+        }
+    }
+    
+    
     private void llenarTablaFunciones(List<FuncionEntidad> funcion) {
         DefaultTableModel modeloTabla = (DefaultTableModel) this.tblHoras.getModel();
 
@@ -168,6 +201,8 @@ public class FrmCartelera extends javax.swing.JFrame {
         campoTextoDuracion = new javax.swing.JTextField();
         campoTextoGenero = new javax.swing.JTextField();
         campoTextoSinopsis = new javax.swing.JTextField();
+        btnComprar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cartelera");
@@ -257,6 +292,24 @@ public class FrmCartelera extends javax.swing.JFrame {
         campoTextoSinopsis.setEditable(false);
         campoTextoSinopsis.setColumns(5);
 
+        btnComprar.setBackground(new java.awt.Color(0, 204, 51));
+        btnComprar.setText("Comprar");
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprarActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setBackground(new java.awt.Color(8, 148, 249));
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setText("Regresar");
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -286,6 +339,12 @@ public class FrmCartelera extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(66, 66, 66))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnComprar)
+                .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +371,11 @@ public class FrmCartelera extends javax.swing.JFrame {
                         .addComponent(lblSinopsis)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(campoTextoSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(44, 44, 44))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnComprar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(9, 9, 9))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -396,8 +459,32 @@ public class FrmCartelera extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbPeliculasActionPerformed
 
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
+        // TODO add your handling code here:
+        if(getHoraSeleccionada() != null){
+
+            FrmCompraPelicula frmCompra = new FrmCompraPelicula(campoTextoTitulo.getText(),campoTextoDuracion.getText(),campoTextoGenero.getText(),getHoraSeleccionada(), this.idCliente);
+            frmCompra.setVisible(true);
+            this.setVisible(false);
+        
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "por favor selecciona una funcion");
+        }
+    }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        FrmIniciarSesion ini = new FrmIniciarSesion(clienteNegocio, peliculaNegocio, sucursalNegocio, funcionNegocio);
+
+        ini.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnComprar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JTextField campoTextoDuracion;
     private javax.swing.JTextField campoTextoGenero;
     private javax.swing.JTextField campoTextoSinopsis;

@@ -7,14 +7,18 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import negocio.ClienteNegocio;
 import negocio.FuncionNegocio;
+import negocio.IClienteNegocio;
 import negocio.IFuncionNegocio;
 import negocio.IPeliculaNegocio;
 import negocio.ISucursalNegocio;
 import negocio.PeliculaNegocio;
 import negocio.SucursalNegocio;
+import persistencia.ClienteDAO;
 import persistencia.ConexionBD;
 import persistencia.FuncionDAO;
+import persistencia.IClienteDAO;
 import persistencia.IConexionBD;
 import persistencia.IFuncionDAO;
 import persistencia.IPeliculaDAO;
@@ -32,6 +36,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
 
         // CAPA persistencia
         IConexionBD ConexionBD = new ConexionBD();
+        IClienteDAO clienteDAO = new ClienteDAO(ConexionBD);
         IPeliculaDAO peliculaDAO = new PeliculaDAO(ConexionBD);
         ISucursalDAO sucursalDAO = new SucursalDAO(ConexionBD);
         IFuncionDAO funcionDAO = new FuncionDAO(ConexionBD);
@@ -40,6 +45,7 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
         ISucursalNegocio sucursalNegocio = new SucursalNegocio(sucursalDAO);
         IPeliculaNegocio peliculaNegocio = new PeliculaNegocio(peliculaDAO);
         IFuncionNegocio funcionNegocio = new FuncionNegocio(funcionDAO);
+        IClienteNegocio clienteNegocio = new ClienteNegocio(clienteDAO);
     
     
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
@@ -94,10 +100,10 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
         btnModificarFuncion = new javax.swing.JButton();
         btnModificarSucursal = new javax.swing.JButton();
         btnModificarCiudad = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Administrador");
-        setPreferredSize(new java.awt.Dimension(700, 500));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -169,6 +175,16 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setBackground(new java.awt.Color(8, 148, 249));
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setText("Regresar");
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -188,6 +204,10 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
                     .addComponent(btnModificarSucursal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificarCiudad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +223,9 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificarCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72))
+                .addGap(35, 35, 35)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -259,12 +281,21 @@ public class FrmPantallaAdmin extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnModificarCiudadActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+        FrmIniciarSesion ini = new FrmIniciarSesion(clienteNegocio, peliculaNegocio, sucursalNegocio, funcionNegocio);
+
+        ini.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificarCiudad;
     private javax.swing.JButton btnModificarFuncion;
     private javax.swing.JButton btnModificarPelicula;
     private javax.swing.JButton btnModificarSucursal;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jblCinepolisLogo;
