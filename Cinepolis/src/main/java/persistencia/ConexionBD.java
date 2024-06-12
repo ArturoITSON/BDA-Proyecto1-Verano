@@ -15,10 +15,10 @@ import java.sql.SQLException;
  */
 public class ConexionBD implements IConexionBD {
     final String SERVER = "localhost";
-    final String BASE_DATOS = "bdclase280524";
+    final String BASE_DATOS = "cinepolis";
     private final String CADENA_CONEXION = "jdbc:mysql://" + SERVER + "/" + BASE_DATOS;
     final String USUARIO = "root";
-    final String CONTRASEÑA = "1234";
+    final String CONTRASEÑA = "13137Cas";
     
     @Override
     public Connection crearConexion() throws SQLException {

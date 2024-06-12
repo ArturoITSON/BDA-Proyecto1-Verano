@@ -3,6 +3,9 @@
  */
 package negocio;
 
+import java.util.List;
+import persistencia.PersistenciaException;
+
 /**
  *
  * @author/(s): Daniel Alejandro Castro Félix - 235294.
@@ -10,5 +13,5 @@ package negocio;
  *              Sergio Arturo García Ramírez - 233316.
  */
 public interface IGeneroNegocio {
-    
+    List<String> obtenerGeneros() throws PersistenciaException;
 }
