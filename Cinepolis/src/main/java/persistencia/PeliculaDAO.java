@@ -221,7 +221,47 @@ public class PeliculaDAO implements IPeliculaDAO {
         ResultSet resultado = comandoSQL.executeQuery();
         
         resultado.next();
-            System.out.println("ss");
+            
+        PeliculaEntidad peliConsultada = convertirAEntidad(resultado);
+            
+             System.out.println("21");
+            return peliConsultada;
+            
+        }
+
+         catch(SQLException ex){
+             //Capturar y manejar cualquier excepcion SQL que ocurra
+             System.out.println("Ocurrio un errorS " + ex.getMessage());
+             System.out.println("aqui dao");
+         }
+
+         
+        return null;
+        
+        
+    }
+
+    public PeliculaEntidad buscarPeliculaTitulo(String titulo) throws PersistenciaException{
+    
+        PeliculaEntidad nuevaPeli = new PeliculaEntidad();
+        
+        
+        try{
+        
+        // Establecer la conexion a la base de datos
+        Connection conexion = this.conexionBD.crearConexion();
+        
+        
+        // Sentencia SQL para seleccionar un alumno por su id
+        String sentenciaSql = "SELECT idPelicula, titulo, duración, sinopsis, trailer, idPais, idGenero, id_Clasificacion FROM peliculas WHERE titulo=?;";
+        
+        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
+        
+        comandoSQL.setString(1, titulo);
+        
+        ResultSet resultado = comandoSQL.executeQuery();
+        
+        resultado.next();
         
         PeliculaEntidad peliConsultada = new PeliculaEntidad(
             resultado.getInt(1),
@@ -251,7 +291,6 @@ public class PeliculaDAO implements IPeliculaDAO {
         
         
     }
-
     
     
 }
