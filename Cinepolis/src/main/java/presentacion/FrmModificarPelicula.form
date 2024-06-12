@@ -56,7 +56,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblModificarPelicula" min="-2" pref="689" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
@@ -66,70 +66,71 @@
                                       <Component id="lblGenero" alignment="0" max="32767" attributes="0"/>
                                       <Component id="cbGenerosPelicula" alignment="0" pref="150" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="cbClasificacionPelicula" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" pref="283" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="lblPais" min="-2" pref="115" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="lblClasificacion" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="campoTextoPais" min="-2" pref="115" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <EmptySpace min="0" pref="175" max="32767" attributes="0"/>
+                                          <Component id="lblClasificacion" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="btnNuevoRegistro" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
-                                              </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <Component id="lblDuracion" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                                          <Component id="lblSinopsis" min="-2" pref="115" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="lblTrailer" min="-2" pref="90" max="-2" attributes="0"/>
-                                                      <Component id="campoTextoTrailer" min="-2" pref="115" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="lblDuracion" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="campoTextoDuracion" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
-                                              <Component id="campoTextoSinopsis" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                  <Component id="campolinkImagen" min="-2" pref="115" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="btnNuevoRegistro" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="lblTrailer1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="campoTextoPais" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                              <Component id="lblPais" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="campoTextoSinopsis" min="-2" pref="115" max="-2" attributes="0"/>
+                                              <Component id="lblSinopsis" min="-2" pref="115" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblTrailer" min="-2" pref="90" max="-2" attributes="0"/>
+                                              <Component id="campoTextoTrailer" min="-2" pref="115" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="625" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="143" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnRegresar" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
-                                  <Component id="btnHecho" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane1" min="-2" pref="625" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="btnRegresar" min="-2" pref="168" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+                                          <Component id="btnHecho" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -151,13 +152,15 @@
                       <Component id="lblSinopsis" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="lblPais" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="lblTrailer" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="lblTrailer1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="campoTextoTitulo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="campoTextoPais" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="campoTextoSinopsis" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="campoTextoTrailer" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="campoTextoTrailer" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="campolinkImagen" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -214,7 +217,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="254" max="-2" attributes="0"/>
                       <Component id="jblCinepolisLogo" min="-2" pref="375" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="255" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -472,6 +475,24 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="campolinkImagen">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ef" green="c9" red="88" type="rgb"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campolinkImagenActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblTrailer1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="20" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Link Imagen"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -84,8 +84,12 @@ public class PeliculaDAO implements IPeliculaDAO {
         Connection conexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultado = null;
+        
+        String link = pelicula.getLinkImagen(); 
 
-        try {
+        if (link == null){
+            
+                    try {
             conexion = conexionBD.crearConexion();
             conexion.setAutoCommit(false);
 
@@ -99,6 +103,57 @@ public class PeliculaDAO implements IPeliculaDAO {
             preparedStatement.setInt(5, pelicula.getPaisOrigen());
             preparedStatement.setInt(6, pelicula.getGeneroPelicula());
             preparedStatement.setInt(7, pelicula.getClasificacionPelicula());
+
+            preparedStatement.executeUpdate();
+
+            resultado = preparedStatement.getGeneratedKeys();
+            if (resultado.next()) {
+                pelicula.setIdPelicula(resultado.getInt(1));
+            }
+
+            conexion.commit();
+        } catch (SQLException ex) {
+            if (conexion != null) {
+                try {
+                    conexion.rollback();
+                } catch (SQLException e) {
+                    throw new PersistenciaException("Error al revertir la transacción: " + e.getMessage());
+                }
+            }
+            throw new PersistenciaException("Error al registrar la película: " + ex.getMessage());
+        } finally {
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                throw new PersistenciaException("Error al cerrar los recursos: " + e.getMessage());
+            }
+        }
+        
+        }
+        
+        try {
+            conexion = conexionBD.crearConexion();
+            conexion.setAutoCommit(false);
+
+            String sentenciaSql = "INSERT INTO Peliculas (titulo, duración, sinopsis, trailer, idPais, idGenero, id_Clasificacion, linkImagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            preparedStatement = conexion.prepareStatement(sentenciaSql, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setString(1, pelicula.getTituloPelicula());
+            preparedStatement.setFloat(2, pelicula.getDuracion());
+            preparedStatement.setString(3, pelicula.getSinopsis());
+            preparedStatement.setString(4, pelicula.getTrailer());
+            preparedStatement.setInt(5, pelicula.getPaisOrigen());
+            preparedStatement.setInt(6, pelicula.getGeneroPelicula());
+            preparedStatement.setInt(7, pelicula.getClasificacionPelicula());
+            preparedStatement.setString(8, pelicula.getLinkImagen());
 
             preparedStatement.executeUpdate();
 
@@ -292,5 +347,60 @@ public class PeliculaDAO implements IPeliculaDAO {
         
     }
     
+    
+    public String buscarPeliculaTituloString(String titulo) throws PersistenciaException{
+    
+           PeliculaEntidad nuevaPeli = new PeliculaEntidad();
+        
+        
+        try{
+        
+        // Establecer la conexion a la base de datos
+        Connection conexion = this.conexionBD.crearConexion();
+        
+        
+        // Sentencia SQL para seleccionar un pelicula por su titulo
+        String sentenciaSql = "SELECT idPelicula, titulo, duración, sinopsis, trailer, idPais, idGenero, id_Clasificacion, linkImagen FROM peliculas WHERE titulo=?;";
+        
+        PreparedStatement comandoSQL = conexion.prepareStatement(sentenciaSql);
+        
+        comandoSQL.setString(1, titulo);
+        
+        ResultSet resultado = comandoSQL.executeQuery();
+        
+        resultado.next();
+        
+        PeliculaEntidad peliConsultada = new PeliculaEntidad(
+            resultado.getInt(1),
+            resultado.getString(2),
+            resultado.getInt(3),
+            resultado.getString(4),
+            resultado.getString(5),
+            resultado.getInt(6),
+            resultado.getInt(7),
+            resultado.getInt(8),
+                resultado.getString(9)
+ 
+        );
+            
+             System.out.println("21");
+            return peliConsultada.getLinkImagen();
+            
+        }
+
+         catch(SQLException ex){
+             //Capturar y manejar cualquier excepcion SQL que ocurra
+             System.out.println("Ocurrio un errorS " + ex.getMessage());
+             System.out.println("aqui dao");
+         }
+
+         
+        return null;
+        
+        
+    
+        
+    }
+
     
 }

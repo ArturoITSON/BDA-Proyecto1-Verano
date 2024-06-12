@@ -244,8 +244,20 @@ public class FrmIniciarSesion extends javax.swing.JFrame {
              
         }
             
+            if(campoTextoCorreo.getText().equals(clienteBuscado.getCorreoElectronico()) && campoTextoContraseña.getText().equals(clienteBuscado.getContra())){
+                
             System.out.println(clienteBuscado.getIdCliente());
-            JOptionPane.showMessageDialog(this, cliente.getFechaNacimiento());
+            FrmCartelera cartelera = new FrmCartelera();
+                    
+            cartelera.setVisible(true);
+            
+            this.setVisible(false);
+            }
+            
+            else{
+                JOptionPane.showMessageDialog(this, "Cliente no encontrado");
+            }
+            
         } catch (NegocioException ex) {
             Logger.getLogger(FrmIniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ini");

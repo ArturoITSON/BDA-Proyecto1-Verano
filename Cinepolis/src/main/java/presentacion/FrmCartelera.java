@@ -9,6 +9,8 @@ import entidad.ClienteEntidad;
 import entidad.FuncionEntidad;
 import entidad.PeliculaEntidad;
 import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
@@ -16,6 +18,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -48,8 +51,10 @@ public class FrmCartelera extends javax.swing.JFrame {
     private IClienteDAO ClienteDato = new ClienteDAO(ConexionBD);
 
     private String rutaCinepolisLogo = "src/main/java/utilerias/Imagenes/CinepolisLogo.png";
+    private String rutaImagen;
     GregorianCalendar date = new GregorianCalendar();
 
+        
     /**
      * Creates new form FrmCartelera
      */
@@ -59,7 +64,9 @@ public class FrmCartelera extends javax.swing.JFrame {
         cargarPeliculas();
         
         
+        
         setImagenLabel(jblCinepolisLogo, rutaCinepolisLogo);
+
     }
 
     private void setImagenLabel(JLabel nombreJlb, String ruta) {
@@ -75,6 +82,25 @@ public class FrmCartelera extends javax.swing.JFrame {
 
         jlbFecha.setText("Funciones de hoy: " + date.get(Calendar.DAY_OF_MONTH) + " - " + (date.get(Calendar.MONTH) + 1) + " - " + date.get(Calendar.YEAR));
     }
+    
+    
+    public void setImagenPeli(JLabel nombreJlb, String ruta) throws IOException{
+        // Atributos para colocar imagenes a la pelicula
+        Image image = null;
+        URL url = new URL(ruta);
+        image = ImageIO.read(url);
+        
+                Icon icon = new ImageIcon(
+                image.getScaledInstance(nombreJlb.getWidth(), nombreJlb.getHeight(), Image.SCALE_DEFAULT));
+
+        nombreJlb.setIcon(icon);
+    
+        
+        this.repaint();
+        
+    }
+    
+    
 
     private void cargarUbicaciones() {
         ClienteDAO clienteDAO = new ClienteDAO(new ConexionBD());
@@ -137,6 +163,7 @@ public class FrmCartelera extends javax.swing.JFrame {
         lblSinopsis = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHoras = new javax.swing.JTable();
+        lblImagenPeli = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cartelera");
@@ -216,35 +243,47 @@ public class FrmCartelera extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblHoras);
 
+        lblImagenPeli.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(227, 227, 227)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(lblSinopsis)
+                .addGap(19, 19, 19)
+                .addComponent(lblImagenPeli, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblDuracion)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblGenero))
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(258, Short.MAX_VALUE))
+                        .addComponent(lblSinopsis)
+                        .addContainerGap(366, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDuracion)
+                            .addComponent(lblGenero))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDuracion)
-                    .addComponent(lblGenero))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSinopsis)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addGap(29, 29, 29)
+                        .addComponent(lblDuracion)
+                        .addGap(27, 27, 27)
+                        .addComponent(lblGenero)
+                        .addGap(41, 41, 41)
+                        .addComponent(lblSinopsis))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblImagenPeli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                            .addGap(152, 152, 152))))
                 .addGap(40, 40, 40))
         );
 
@@ -311,6 +350,12 @@ public class FrmCartelera extends javax.swing.JFrame {
             lblDuracion.setText(String.valueOf(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getDuracion()));
             lblGenero.setText(generoDAO.obtenerGeneroDePelicula(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getGeneroPelicula()));
             
+            String direccion = peliDAO.buscarPeliculaTituloString(lblTitulo.getText());
+            try {
+                setImagenPeli(lblImagenPeli,direccion);
+            } catch (IOException ex) {
+                Logger.getLogger(FrmCartelera.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             llenarTablaFunciones(funcionDAO.buscarFuncionesPorPelicula(peliDAO.buscarPeliculaTitulo(cbPeliculas.getItemAt(cbPeliculas.getSelectedIndex())).getIdPelicula()));
         } catch (PersistenciaException | SQLException ex) {
@@ -318,40 +363,6 @@ public class FrmCartelera extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbPeliculasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCartelera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCartelera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCartelera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCartelera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmCartelera().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbPeliculas;
@@ -364,6 +375,7 @@ public class FrmCartelera extends javax.swing.JFrame {
     private javax.swing.JTextField jlbFecha;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblImagenPeli;
     private javax.swing.JLabel lblSinopsis;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tblHoras;

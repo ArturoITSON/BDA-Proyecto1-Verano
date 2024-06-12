@@ -18,5 +18,7 @@ public interface IPeliculaDAO {
     public void editarPelicula(PeliculaEntidad pelicula) throws PersistenciaException;
     public void eliminarPelicula(int idPelicula) throws PersistenciaException;
     public PeliculaEntidad buscarPelicula(PeliculaEntidad peli) throws PersistenciaException;
+    public String buscarPeliculaTituloString(String titulo) throws PersistenciaException;
+
 
 }

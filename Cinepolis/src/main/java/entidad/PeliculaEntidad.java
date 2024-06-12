@@ -18,6 +18,7 @@ public class PeliculaEntidad {
     private int paisOrigen;
     private int generoPelicula;
     private int clasificacionPelicula;
+    private String linkImagen;
 
     public PeliculaEntidad(int idPelicula, String tituloPelicula, float duracion, String sinopsis, String trailer, int paisOrigen, int generoPelicula, int clasificacionPelicula) {
         this.idPelicula = idPelicula;
@@ -31,6 +32,26 @@ public class PeliculaEntidad {
     }
 
     public PeliculaEntidad() {
+    }
+
+    public PeliculaEntidad(int idPelicula, String tituloPelicula, float duracion, String sinopsis, String trailer, int paisOrigen, int generoPelicula, int clasificacionPelicula, String linkImagen) {
+        this.idPelicula = idPelicula;
+        this.tituloPelicula = tituloPelicula;
+        this.duracion = duracion;
+        this.sinopsis = sinopsis;
+        this.trailer = trailer;
+        this.paisOrigen = paisOrigen;
+        this.generoPelicula = generoPelicula;
+        this.clasificacionPelicula = clasificacionPelicula;
+        this.linkImagen = linkImagen;
+    }
+
+    public String getLinkImagen() {
+        return linkImagen;
+    }
+
+    public void setLinkImagen(String linkImagen) {
+        this.linkImagen = linkImagen;
     }
     
     
